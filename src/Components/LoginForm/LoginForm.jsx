@@ -31,7 +31,7 @@ const LoginForm = () => {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify(requestBody), // Відправляємо тільки nickname
+                body: JSON.stringify(requestBody),
             });
 
             // Перевірка на успішний статус відповіді

@@ -25,6 +25,7 @@ const LoginForm = () => {
 
         try {
             // Відправка POST запиту на сервер
+            //http://localhost:8080/api/auth/login
             const response = await fetch('https://57f7a27d-7e2d-4c80-b002-bf669aea8c49.mock.pstmn.io/api/auth/login', {
                 method: 'POST',
                 headers: {

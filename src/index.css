@@ -1,3 +1,30 @@
+
+ @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+
+body {
+  
+  font-family: "Cinzel", serif;
+  font-style: normal;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  background: url('./Components/Assets/pcr1.jpg');
+  min-height: 95vh;
+  align-items: center;
+
+  
+} 
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,3 +93,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+
+

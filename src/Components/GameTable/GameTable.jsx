@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./GameTable.css";
 
 // Мок-дані гравців
-const allPlayers = [
-  { id: 1, name: "You", avatar: "/src/assets/player-icon.png" },
-  { id: 2, name: "Player 2", avatar: "/src/assets/player-icon.png" },
-  { id: 3, name: "Player 3", avatar: "/src/assets/player-icon.png" },
-  { id: 4, name: "Player 4", avatar: "/src/assets/player-icon.png" },
-  { id: 5, name: "Player 5", avatar: "/src/assets/player-icon.png" },
-  { id: 6, name: "Player 6", avatar: "/src/assets/player-icon.png" },
+const allPlayers = [    
+  { id: 1, name: "You", avatar: "/src/Components/assets/player-icon.png" },
+  { id: 2, name: "Player 2", avatar: "/src/Components/Assets/player-icon.png" },
+  { id: 3, name: "Player 3", avatar: "/src/Components/Assets/player-icon.png" },
+  { id: 4, name: "Player 4", avatar: "/src/Components/Assets/player-icon.png" },
+  { id: 5, name: "Player 5", avatar: "/src/Components/Assets/player-icon.png" },
+  { id: 6, name: "Player 6", avatar: "/src/Components/Assets/player-icon.png" },
 ];
 
 const positionsByPlayerCount = {
@@ -78,12 +78,12 @@ const GameTable = () => {
       </div>
       <div className="game-table">
         <img
-          src="/src/assets/table-background.png"
+          src="/src/Components/Assets/table-background.png"
           alt="Background"
           className="background"
         />
         <img
-          src="/src/assets/poker-table.png"
+          src="/src/Components/Assets/poker-table.png"
           alt="Poker Table"
           className="table"
         />

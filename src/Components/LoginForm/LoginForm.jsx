@@ -8,30 +8,34 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+       
         const storedUuid = sessionStorage.getItem("uuid");
         if (storedUuid) {
-            navigate('/lobbies');
+            navigate('/home'); 
         }
-    }, [navigate]);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+      
         const requestBody = {
             nickname: username,
         };
 
         try {
-            // Відправка POST запиту на реальний бекенд
-            const response = await fetch('http://localhost:8080/api/auth/login', { // Змінити URL на реальний
+            // Відправка POST запиту на сервер
+            //http://localhost:8080/api/auth/login
+            const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify(requestBody), // Відправляємо nickname
+                body: JSON.stringify(requestBody),
             });
 
+            // Перевірка на успішний статус відповіді
             if (response.ok) {
                 const data = await response.json();
                 console.log('Успішний логін:', data);
@@ -40,7 +44,7 @@ const LoginForm = () => {
                 const { uuid } = data;
                 sessionStorage.setItem("uuid", uuid);
 
-                navigate('/lobbies');
+                navigate('/home');
             } else {
                 const errorData = await response.json();
                 console.error('Помилка при авторизації:', errorData);

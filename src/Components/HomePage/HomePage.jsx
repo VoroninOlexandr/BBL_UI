@@ -1,8 +1,25 @@
+// import './HomePage.css'
+// import React from "react";
+// import WebSocketComponent from '../WebSocketComponent/WebSocketComponent';
+// import axios from "axios";
+
+// const HomePage = () => {
+//     return (
+//         <div className="lobbywrapper">
+//             <h1>Welcome!</h1>
+//             <WebSocketComponent/>
+//         </div>
+//     );
+// };
+
+// export default HomePage;
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Додайте useNavigate
 
-const GameLobbies = () => {
+const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
   const [newLobbyName, setNewLobbyName] = useState("");
   const [error, setError] = useState(null);
@@ -85,4 +102,4 @@ const GameLobbies = () => {
   );
 };
 
-export default GameLobbies;
+export default HomePage;

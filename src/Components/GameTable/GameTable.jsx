@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./GameTable.css";
+import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
 
 // Мок-дані гравців
 const allPlayers = [    
@@ -50,6 +51,7 @@ const positionsByPlayerCount = {
 
 const GameTable = () => {
   const [playerCount, setPlayerCount] = useState(6);
+  const [chatMessages, setChatMessages] = useState([]); // Додаємо стани для чат-повідомлень
 
   const increasePlayers = () => {
     if (playerCount < allPlayers.length) {
@@ -88,7 +90,6 @@ const GameTable = () => {
           className="table"
         />
 
-        {}
         {players.map((player, index) => (
           <div
             key={player.id}
@@ -106,6 +107,7 @@ const GameTable = () => {
           </div>
         ))}
       </div>
+      <WebSocketComponentChat chatMessages={chatMessages} setChatMessages={setChatMessages} />
     </div>
   );
 };

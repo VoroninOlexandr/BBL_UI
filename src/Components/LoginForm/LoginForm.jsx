@@ -24,8 +24,7 @@ const LoginForm = () => {
         };
 
         try {
-            // Відправка POST запиту на сервер
-            //http://localhost:8080/api/auth/login
+            
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -41,8 +40,9 @@ const LoginForm = () => {
                 console.log('Успішний логін:', data);
 
                 // Отримуємо uuid з відповіді сервера та зберігаємо його в sessionStorage
-                const { uuid } = data;
+                const { uuid,username } = data;
                 sessionStorage.setItem("uuid", uuid);
+                sessionStorage.setItem("nickname", username);
 
                 navigate('/home');
             } else {

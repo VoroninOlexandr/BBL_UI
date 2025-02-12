@@ -12,7 +12,7 @@ const HomePage = () => {
 
   const fetchLobbies = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/games/get_all");
+      const response = await axios.get("http://localhost:8080/api/games/get-all");
       setLobbies(response.data);
     } catch (err) {
       setError("Failed to fetch game lobbies");

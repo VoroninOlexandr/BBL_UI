@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./GameTable.css";
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
+import BetControls from "./BetControls";
 
 // Мок-дані гравців
 const allPlayers = [    
@@ -65,6 +66,21 @@ const GameTable = () => {
     }
   };
 
+  const handleRaise = (bet) => {
+    console.log(`Raised bet to $${bet}`);
+    // You can implement further logic here for raising the bet
+  };
+
+  const handleCheck = () => {
+    console.log("Checked");
+    // You can implement further logic here for checking
+  };
+
+  const handlePass = () => {
+    console.log("Passed");
+    // You can implement further logic here for passing
+  };
+
   const players = allPlayers.slice(0, playerCount);
   const positions = positionsByPlayerCount[playerCount];
 
@@ -89,7 +105,6 @@ const GameTable = () => {
           alt="Poker Table"
           className="table"
         />
-
         {players.map((player, index) => (
           <div
             key={player.id}
@@ -107,6 +122,7 @@ const GameTable = () => {
           </div>
         ))}
       </div>
+      <BetControls onRaise={handleRaise} onCheck={handleCheck} onPass={handlePass} />
       <WebSocketComponentChat chatMessages={chatMessages} setChatMessages={setChatMessages} />
     </div>
   );

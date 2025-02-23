@@ -36,8 +36,12 @@ const HomePage = () => {
 
   if (error) return <div>{error}</div>;
 
-  const handleJoinTable = () => {
-    navigate("/table"); // Перенаправлення на сторінку покерного столу
+  const handleJoinTable = async(lid) => {
+    const response = await axios.post("http://localhost:8080/api/games/join/" + lid, {playerName : sessionStorage.getItem("username")});
+
+    const playerId = response.data.playerId;
+    
+    navigate("/table/" + playerId); // Перенаправлення на сторінку покерного столу
   };
 
   return (
@@ -73,15 +77,13 @@ const HomePage = () => {
               }}
             >
               <strong>{lobby.lobbyName}</strong> - Players: {lobby.playerCount}
+              <button onClick={() => handleJoinTable(lobby.id)} style={{ padding: "10px 20px", marginTop: "20px" }}>
+        Join Poker Table
+      </button>
             </li>
           ))}
         </ul>
-      )}
-
-      {/* Кнопка для переходу на сторінку покерного столу */}
-      <button onClick={handleJoinTable} style={{ padding: "10px 20px", marginTop: "20px" }}>
-        Join Poker Table
-      </button>
+      )}      
     </div>
   );
 };

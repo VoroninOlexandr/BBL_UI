@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./GameTable.css";
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
 import BetControls from "./BetControls";
+import WebSocketService from "../../WebSocketService";
 
 // Мок-дані гравців
 const allPlayers = [    
@@ -77,6 +78,13 @@ const GameTable = () => {
   };
 
   const handlePass = () => {
+    const lobbyId = sessionStorage.getItem("lobbyId");
+    const playerId = sessionStorage.getItem("playerId");
+
+    const message = {name : "Vladyslav", lastname : "Pushak"};
+
+    WebSocketService.sendMessage(lobbyId, message);
+
     console.log("Passed");
     // You can implement further logic here for passing
   };

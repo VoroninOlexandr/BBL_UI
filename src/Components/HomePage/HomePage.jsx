@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Додайте useNavigate
+import WebSocketService from "../../WebSocketService";
 
 const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
@@ -40,9 +41,21 @@ const HomePage = () => {
     const response = await axios.post("http://localhost:8080/api/games/join/" + lid, {playerName : sessionStorage.getItem("username")});
 
     const playerId = response.data.playerId;
+    const gameId = response.data.lobbyId;
+
+    sessionStorage.setItem("playerId", playerId);
+    sessionStorage.setItem("gameId", gameId);
+
+    WebSocketService.connect(gameId, playerId, printer);
     
     navigate("/table/" + playerId); // Перенаправлення на сторінку покерного столу
   };
+
+  const printer = (data, number) => {
+    const jsonString = JSON.stringify(data, null, 2);
+    console.log(jsonString);
+    console.log(number);
+  }
 
   return (
     <div>

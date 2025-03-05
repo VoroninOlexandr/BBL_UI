@@ -12,12 +12,15 @@ const WebSocketComponentChat = () => {
 
     useEffect(() => {
 
+
         const storedNickname = sessionStorage.getItem("username");
         if (storedNickname) {
             setNickname(storedNickname);
         }
 
+
         const socket = new SockJS('http://localhost:8080/chat');
+
         const client = new Client({
             webSocketFactory: () => socket,
             reconnectDelay: 5000, // Якщо підключення падає, повторюємо спробу через 5 сек

@@ -10,7 +10,9 @@
 }
 
 .chat-box {
-  background: #fff;
+
+  background:transparent;
+
   padding: 15px;
   border: 2px solid #534e8b;
   border-radius: 5px;
@@ -21,7 +23,9 @@
 }
 
 .messages-box {
-  background: #fff;
+
+  background: transparent;
+
   padding: 10px;
   border: 2px solid #534e8b;
   border-radius: 5px;
@@ -81,10 +85,12 @@ z-index: 1;
 
 .table {
 position: absolute;
-top: 47%;
+
+top: 44%;
 left: 50%;
 width: 100%;
-max-width: 1100px;
+max-width: 1200px;
+
 transform: translate(-50%, -50%);
 z-index: 2;
 }
@@ -136,12 +142,19 @@ border-color: #C95B5B;
 border-color: #2C2EA5;
 }
 
+
+/* Нікнейми */
 .player-name {
-margin-top: 5px;
-font-size: 14px;
-color: #fff;
-text-shadow: 1px 1px 2px #000;
+  margin-top: 17px; /* Збільшуємо відстань між аватаром та нікнеймом */
+  font-family: 'Montserrat', sans-serif; /* Застосовуємо шрифт Montserrat */
+  font-weight: 600; /* Застосовуємо Semibold (600) */
+  font-size: 16px; /* Розмір шрифту для нікнейму */
+  color: #fff;
+  text-shadow: 1px 1px 2px #000; /* Тінь для тексту */
+  text-align: center; /* Вирівнюємо текст по центру */
 }
+
+
 
 /* Controls */
 .controls {
@@ -212,3 +225,33 @@ font-size: 20px;
 color: white;
 margin-left: 10px;
 }
+
+
+.players-list {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* .players-list h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+} */
+
+.players-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.players-list li {
+  margin: 5px 0;
+  font-size: 14px;
+}
+

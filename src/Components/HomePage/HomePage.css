@@ -1,30 +1,32 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('/src/Components/Assets/lobbylist.png');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    justify-content: left;
-    align-items: center ;
-    box-sizing: border-box;
-  }
+
+  background-image: url('/src/Components/Assets/lobbylist.png');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
   
   .home-page {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: flex-start;
     width: 60%;
     max-width: 900px;
   }
   
-  h1 {
+  h4 {
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
-    font-size: 3.2rem;
+    font-size: 3.5rem;
     color: white;
     margin-bottom: 0px;
     text-align: left;
@@ -36,8 +38,8 @@ body {
   h3 {
     font-family: 'Helvetica', sans-serif;
     font-weight: normal;
-    font-size: 1rem;
-    color: white;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.607);
     margin-bottom: 20px;
     text-align: left; 
     white-space: nowrap; 
@@ -54,7 +56,7 @@ body {
   }
   
   .lobby-input {
-    width: 300px;
+    width: 390px;
     height: 35px;
     padding: 10px;
     font-size: 9px;
@@ -77,17 +79,17 @@ body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 10px;
     font-weight: bold;
     height: 35px;
-    width: 70%;
+    width: 50%;
     margin-left: 5px;
     line-height: 0px;
     transform: translateY(-5px);
   }
   
   .create-lobby-button:hover {
-    background-color: #45a049;
+    background-color: #792ea1;
   }
   
   .lobby-table {
@@ -134,7 +136,7 @@ body {
   }
   
   .join-lobby-button:hover {
-    background-color: #007B8A;
+    background-color: #6d2184;
   }
   
   .error-message {
@@ -143,53 +145,5 @@ body {
     margin-bottom: 15px;
     text-align: left;
   }
-
-  .align-left {
-    text-align: left;
-  }
   
-  .align-right {
-    text-align: right;
-  }
   
-  .align-center {
-    text-align: center;
-  }
-  
-  .flex-start {
-    justify-content: flex-start;
-  }
-  
-  .flex-end {
-    justify-content: flex-end;
-  }
-  
-  .center-items {
-    justify-content: center;
-  }
-  
-  .margin-top {
-    margin-top: 20px;
-  }
-  
-  .margin-bottom {
-    margin-bottom: 20px;
-  }
-  
-  .spacing-right {
-    margin-right: 10px;
-  }
-  
-  .spacing-left {
-    margin-left: 10px;
-  }
-  
-  .max-width {
-    max-width: 500px;
-  }
-  
-  .max-width-300 {
-    max-width: 300px;
-  }
-  
-

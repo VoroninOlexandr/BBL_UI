@@ -1,22 +1,18 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import WebSocketService from "../../WebSocketService";
 import "./HomePage.css";
 
-
 const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
   const [newLobbyName, setNewLobbyName] = useState("");
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchLobbies();
   }, []);
-
 
   const fetchLobbies = async () => {
     try {
@@ -26,8 +22,6 @@ const HomePage = () => {
       setError("Failed to fetch game lobbies");
     }
   };
-
-
 
   const handleAddLobby = async (e) => {
     e.preventDefault();
@@ -39,7 +33,6 @@ const HomePage = () => {
       setError("Failed to create a new lobby");
     }
   };
-
 
   const handleJoinTable = async (lobbyId) => {
     const username = sessionStorage.getItem("username");
@@ -66,18 +59,16 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <h1>Lobby List</h1>
-      <h3>Choose an available lobby or create one</h3>
+      <h4>Lobby List</h4>
+      <h3>Choose available lobby from the list or create one</h3>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleAddLobby} className="create-lobby-form">
-
         <input
           type="text"
           value={newLobbyName}
           onChange={(e) => setNewLobbyName(e.target.value)}
           placeholder="Enter lobby name"
           required
-
           className="lobby-input"
         />
         <button type="submit" className="create-lobby-button">Create</button>
@@ -112,7 +103,6 @@ const HomePage = () => {
           )}
         </tbody>
       </table>
-
     </div>
   );
 };

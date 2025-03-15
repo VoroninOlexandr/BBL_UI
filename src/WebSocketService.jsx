@@ -15,7 +15,7 @@ class WebSocketService {
 
     this.client = new Client({
       brokerURL: "ws://localhost:8080/ws",
-      reconnectDelay: 5000, // Reconnect automatically
+      reconnectDelay: 5000,
       onConnect: () => {
         console.log("WebSocket Connected to Game:", gameId);
         this.subscribeToGame(gameId, playerId, onMessageReceived);

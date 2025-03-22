@@ -97,11 +97,11 @@ body, html {
     width: 25%;
     margin-left: 5px;
     line-height: 0px;
-    transform: translateY(15px);
+    transform: translateY(20px);
     transition: transform 0.4s ease;
 }
 
 .login-button:hover {
     background-color: #0056b3;
-    transform: translateY(12px);
+    transform: translateY(18px);
 }

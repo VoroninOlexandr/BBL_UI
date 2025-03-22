@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./WebSocketComponentDealer.css";
+import WebSocketService from "../../WebSocketService";
 
 const Suit = {
   0: "clubs",
@@ -28,23 +29,28 @@ const WebSocketComponentDealer = () => {
   const [communityCards, setCommunityCards] = useState([]);
   const [privateCards, setPrivateCards] = useState([]);
 
+
   const handleCardData = (data) => {
+    const newCard = {
+      suit: data.ordinalCard.suit,
+      rank: data.ordinalCard.rank,
+    };
+
     if (data.actionType === 1) {
-      setCommunityCards((prev) => {
-        const exists = prev.some(
-          (card) => card.rank === data.ordinalCard.rank && card.suit === data.ordinalCard.suit
-        );
-        return exists ? prev : [...prev, data.ordinalCard];
-      });
+      setCommunityCards((prev) => [...prev, newCard]);
     } else if (data.actionType === 0) {
-      setPrivateCards((prev) => {
-        const exists = prev.some(
-          (card) => card.rank === data.ordinalCard.rank && card.suit === data.ordinalCard.suit
-        );
-        return exists ? prev : [...prev, data.ordinalCard];
-      });
+      setPrivateCards((prev) => [...prev, newCard]);
     }
   };
+
+  useEffect(() => {
+    const gameId = sessionStorage.getItem("lobbyId"); 
+    const playerId = sessionStorage.getItem("playerId");
+
+    if (gameId && playerId) {
+      WebSocketService.connect(gameId, playerId, handleCardData);
+    }
+  }, []);
 
   return (
     <div className="game-table-container">

@@ -22,7 +22,6 @@ const WebSocketComponentChat = () => {
 
     client.onConnect = () => {
       console.log("Connected to WebSocket");
-
       client.subscribe("/topic/messages", (message) => {
         const receivedMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, receivedMessage]);
@@ -38,6 +37,13 @@ const WebSocketComponentChat = () => {
   }, []);
 
   const handleMessageChange = (e) => setMessage(e.target.value);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
+  };
 
   const sendMessage = () => {
     if (stompClient && message.trim()) {
@@ -64,11 +70,11 @@ const WebSocketComponentChat = () => {
       </div>
       <div className="chat-input">
         <textarea
-          placeholder="Enter your message"
+          placeholder="Enter message..."
           value={message}
           onChange={handleMessageChange}
+          onKeyDown={handleKeyDown}
         />
-        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );

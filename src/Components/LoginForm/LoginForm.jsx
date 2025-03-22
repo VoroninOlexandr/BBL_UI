@@ -8,15 +8,12 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         sessionStorage.setItem("username", username);
         navigate('/home');
-
     };
 
     return (
@@ -36,13 +33,10 @@ const LoginForm = () => {
                     />
                     <button type="submit" className="login-button">Log In</button>
                 </div>
-
             </form>
         </div>
     );
 };
 
 export default LoginForm;
-
     
-

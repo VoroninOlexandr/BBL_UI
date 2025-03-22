@@ -14,6 +14,23 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Блокування масштабування при натисканні Ctrl + Scroll
+    const handleWheel = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault(); // Запобігаємо стандартному дії масштабування
+      }
+    };
+
+    // Додаємо обробник події
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    // Очищуємо обробник події при розмонтуванні компонента
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []); // Виконати тільки один раз після рендеру компонента
+  
+  useEffect(() => {
     fetchLobbies();
   }, []);
 
@@ -82,6 +99,8 @@ const HomePage = () => {
         />
         <button type="submit" className="create-lobby-button">Create</button>
       </form>
+
+      
       <table className="lobby-table">
         <thead>
           <tr>
@@ -101,18 +120,26 @@ const HomePage = () => {
               <tr key={lobby.id}>
                 <td>{lobby.lobbyName}</td>
                 <td>{lobby.playerCount}</td>
-                <td>🔓</td>
+                <td  className="lock-icon">
+                {lobby.playerCount >= 6 ? '🔒' : '🔓'}
+                </td>
                 <td>
-                  <button onClick={() => handleJoinTable(lobby.id)} className="join-lobby-button">
+                <button 
+                  onClick={() => handleJoinTable(lobby.id)}
+                  disabled={lobby.playerCount >= 6} 
+                  className={`join-button ${lobby.playerCount >= 6 ? 'disabled' : ''}`}
+                  >
                     Join
                   </button>
+
+
                 </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
-
+      
     </div>
   );
 };

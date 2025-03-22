@@ -94,6 +94,7 @@ body {
     width: 250%; 
     border-collapse: collapse;
     background-color: transparent;
+    
     border-radius: 5px;
     margin-top: 20px;
     color: white; 
@@ -104,6 +105,7 @@ body {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ccc;
+    
   }
   
   .lobby-table th {
@@ -192,4 +194,23 @@ body {
     max-width: 300px;
   }
   
+  .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .lock-icon {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    
+  }
 
+  .table-container {
+    max-height: 600px; /* Встановлює максимальну висоту */
+    overflow-y: auto; /* Додає вертикальну прокрутку */
+    overflow-x: hidden; /* Забороняє горизонтальну прокрутку */
+    margin-top: 20px; /* Додає відступ зверху */
+    width: 100%;
+  }
+  

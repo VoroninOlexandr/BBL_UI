@@ -63,6 +63,18 @@ const GameTable = () => {
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
+    const handleWheel = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault(); 
+      }
+    };
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []); 
+
+  useEffect(() => {
     const lobbyId = sessionStorage.getItem("lobbyId");
     if (!lobbyId) {
       console.log("Lobby ID is missing");

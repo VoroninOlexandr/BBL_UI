@@ -39,13 +39,13 @@ class WebSocketService {
     
 
     this.table = this.client.subscribe(game, (message) => {
-      const data = message.body;
-      onMessageReceived(data, 0);
+      const data = JSON.parse(message.body);
+      onMessageReceived(data);
     });
 
     this.hole = this.client.subscribe(player, (message) => {
-        const data = message.body;
-        onMessageReceived(data, 1);
+        const data = JSON.parse(message.body);
+        onMessageReceived(data);
       });
 
   }

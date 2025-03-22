@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import WebSocketService from "../../WebSocketService";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -50,7 +49,7 @@ const HomePage = () => {
       sessionStorage.setItem("playerId", playerId);
       sessionStorage.setItem("gameId", gameId);
       sessionStorage.setItem("lobbyId", lobbyId);
-      WebSocketService.connect(gameId, playerId, console.log);
+      
       navigate(`/table/${playerId}`);
     } catch (err) {
       setError("Failed to join the table.");

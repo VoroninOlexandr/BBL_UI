@@ -41,6 +41,24 @@ const positionsByPlayerCount = {
 const GameTable = () => {
   const [players, setPlayers] = useState([]);
 
+
+   useEffect(() => {
+      const handleWheel = (e) => {
+        if (e.ctrlKey) {
+          e.preventDefault(); 
+        }
+      };
+      window.addEventListener("wheel", handleWheel, { passive: false });
+      return () => {
+        window.removeEventListener("wheel", handleWheel);
+      };
+    }, []); 
+    
+    useEffect(() => {
+      fetchLobbies();
+    }, []);
+
+
   useEffect(() => {
     const lobbyId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");

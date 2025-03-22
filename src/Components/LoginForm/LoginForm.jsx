@@ -6,6 +6,24 @@ import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
+    
+    useEffect(() => {
+          const handleWheel = (e) => {
+            if (e.ctrlKey) {
+              e.preventDefault(); 
+            }
+          };
+          window.addEventListener("wheel", handleWheel, { passive: false });
+          return () => {
+            window.removeEventListener("wheel", handleWheel);
+          };
+        }, []); 
+        
+        useEffect(() => {
+          fetchLobbies();
+        }, []);
+
+        
 
     useEffect(() => {
     }, []);

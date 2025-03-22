@@ -41,6 +41,7 @@ const positionsByPlayerCount = {
 const GameTable = () => {
   const [players, setPlayers] = useState([]);
 
+
    useEffect(() => {
       const handleWheel = (e) => {
         if (e.ctrlKey) {
@@ -56,6 +57,7 @@ const GameTable = () => {
     useEffect(() => {
       fetchLobbies();
     }, []);
+
 
   useEffect(() => {
     const lobbyId = sessionStorage.getItem("lobbyId");

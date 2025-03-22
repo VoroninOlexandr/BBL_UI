@@ -34,6 +34,7 @@ const HomePage = () => {
     fetchLobbies();
   }, []);
 
+
   const fetchLobbies = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/games/get-all");

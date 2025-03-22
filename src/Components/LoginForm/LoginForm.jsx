@@ -6,17 +6,32 @@ import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
+    
+    useEffect(() => {
+          const handleWheel = (e) => {
+            if (e.ctrlKey) {
+              e.preventDefault(); 
+            }
+          };
+          window.addEventListener("wheel", handleWheel, { passive: false });
+          return () => {
+            window.removeEventListener("wheel", handleWheel);
+          };
+        }, []); 
+        
+        useEffect(() => {
+          fetchLobbies();
+        }, []);
+
+        
 
     useEffect(() => {
-
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         sessionStorage.setItem("username", username);
         navigate('/home');
-
     };
 
     return (
@@ -36,13 +51,10 @@ const LoginForm = () => {
                     />
                     <button type="submit" className="login-button">Log In</button>
                 </div>
-
             </form>
         </div>
     );
 };
 
 export default LoginForm;
-
     
-

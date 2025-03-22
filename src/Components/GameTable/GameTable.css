@@ -1,257 +1,272 @@
-/* Chat Container */
+.game-table {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.background {
+  position: relative;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-position: center;
+  display: flex;
+}
+
+.table {
+  position: absolute;
+  top: 42.5%;
+  left: 50.5%;
+  width: 100%;
+  max-width: 1200px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.cards-container {
+  display: flex;
+  gap: 12px;
+  position: absolute;
+  top: 44.6%;
+  left: 35.5%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+.card-image {
+  width: 85px;
+  height: 130px;
+  background-size: cover;
+  border-radius: 8px;
+}
+
+.private-cards-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 4;
+}
+
+.private-card {
+  width: 80px;
+  height: 120px;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  border: 2px solid gold;
+}
+
+.player {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid;
+}
+
+.main-player {
+  width: 150px;
+  height: 150px;
+  border-color: #ffffff;
+}
+
+.player:nth-child(3) .avatar {
+  border-color: #ffffff;
+}
+
+.player:nth-child(4) .avatar {
+  border-color: #C19B4A;
+}
+
+.player:nth-child(5) .avatar {
+  border-color: #379A4D;
+}
+
+.player:nth-child(6) .avatar {
+  border-color: #712AB0;
+}
+
+.player:nth-child(7) .avatar {
+  border-color: #C95B5B;
+}
+
+.player:nth-child(8) .avatar {
+  border-color: #2C2EA5;
+}
+
+.player-name {
+  margin-top: 17px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  text-align: center;
+}
+
+.controls {
+  position: absolute;
+  top: 3%;
+  left: 10%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  z-index: 6;
+}
+
+.control-button {
+  margin: 0 10px;
+  padding: 12px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #534e8b;
+  border-radius: 5px;
+  background-color: #534e8b;
+  color: white;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.control-button:hover {
+  background-color: #392e6a;
+  transform: scale(1.05);
+}
+
+.control-button:disabled {
+  background-color: #d1c6e3;
+  cursor: not-allowed;
+}
+
+/* Bet Controls */
+.betting-controls {
+  position: absolute;
+  top: 90%;  
+  left: 1%;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.betting-controls input[type="range"] {
+  margin-right: 5px;
+}
+
+.betting-controls button {
+  margin: 0 5px;
+  padding: 10px 30px;
+  font-size: 20px;
+  background-color: #1f8016;
+  color: white;
+  border: 2px solid #bdec72;
+  border-radius: 5px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.betting-controls button:hover {
+  background-color: #002aff;
+  transform: scale(1.05);
+}
+
+.betting-controls span {
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  margin-left: 10px;
+}
+
 .chat-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 40px;
+  right: 25px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 
-.chat-box {
-
-  background:transparent;
-
-  padding: 15px;
-  border: 2px solid #534e8b;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  width: 200px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-  font-size: 12px;
-}
-
 .messages-box {
-
   background: transparent;
-
   padding: 10px;
-  border: 2px solid #534e8b;
   border-radius: 5px;
-  width: 400px;
+  width: 270px;
   max-height: 150px;
   overflow-y: auto;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: right;
   font-size: 12px;
   overflow-y: auto;
-}
-
-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #534e8b;
-  color: white;
-  border: 2px solid #534e8b;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  font-size: 20px;
-}
-
-button:hover {
-  background-color: #392e6a;
-  transform: scale(1.05);
-}
-
-textarea {
-  width: 100%;
-  margin-top: 5px;
-  height: 100px;
-  border: 2px solid #534e8b;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Game Table */
-.game-table {
-position: relative;
-width: 100vw;
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-}
-
-.background {
-position: absolute;
-width: 100%;
-height: 100%;
-object-fit: cover;
-z-index: 1;
-}
-
-.table {
-position: absolute;
-
-top: 44%;
-left: 50%;
-width: 100%;
-max-width: 1200px;
-
-transform: translate(-50%, -50%);
-z-index: 2;
-}
-
-.player {
-position: absolute;
-display: flex;
-flex-direction: column;
-align-items: center;
-z-index: 3;
-}
-
-.avatar {
-width: 120px;
-height: 120px;
-border-radius: 50%;
-border: 6px solid;
-box-shadow: 4px 4px 4.9px 0 rgba(0, 0, 0, 0.25);
-}
-
-.main-player {
-width: 150px;
-height: 150px;
-border-color: #ffffff;
-box-shadow: 4px 4px 4.9px 0 rgba(0, 0, 0, 0.25);
-}
-
-.player:nth-child(3) .avatar {
-border-color: #ffffff;
-}
-
-.player:nth-child(4) .avatar {
-border-color: #C19B4A;
-}
-
-.player:nth-child(5) .avatar {
-border-color: #379A4D;
-}
-
-.player:nth-child(6) .avatar {
-border-color: #712AB0;
-}
-
-.player:nth-child(7) .avatar {
-border-color: #C95B5B;
-}
-
-.player:nth-child(8) .avatar {
-border-color: #2C2EA5;
+  margin-bottom: 15px;
 }
 
 
-/* Нікнейми */
-.player-name {
-  margin-top: 17px; /* Збільшуємо відстань між аватаром та нікнеймом */
-  font-family: 'Montserrat', sans-serif; /* Застосовуємо шрифт Montserrat */
-  font-weight: 600; /* Застосовуємо Semibold (600) */
-  font-size: 16px; /* Розмір шрифту для нікнейму */
-  color: #fff;
-  text-shadow: 1px 1px 2px #000; /* Тінь для тексту */
-  text-align: center; /* Вирівнюємо текст по центру */
-}
-
-
-
-/* Controls */
-.controls {
-position: absolute;
-top: 3%;
-left: 10%;
-transform: translateX(-50%);
-display: flex;
-justify-content: center;
-z-index: 4;
-}
-
-.control-button {
-margin: 0 10px;
-padding: 12px 25px;
-font-size: 16px;
-cursor: pointer;
-border: 2px solid #534e8b;
-border-radius: 5px;
-background-color: #534e8b;
-color: white;
-transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.control-button:hover {
-background-color: #392e6a;
-transform: scale(1.05);
-}
-
-.control-button:disabled {
-background-color: #d1c6e3;
-cursor: not-allowed;
-}
-
-/* Bet Controls */
-.betting-controls {
-position: absolute;
-top: 90%;  
-left: 1%;
-z-index: 5;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.betting-controls input[type="range"] {
-margin-right: 5px;
-}
-
-.betting-controls button {
-margin: 0 5px;
-padding: 10px 30px;
-font-size: 20px;
-background-color: #1f8016;
-color: white;
-border: 2px solid #bdec72;
-border-radius: 5px;
-transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.betting-controls button:hover {
-background-color: #da544a;
-transform: scale(1.05);
-}
-
-.betting-controls span {
-font-size: 20px;
-color: white;
-margin-left: 10px;
-}
-
-
-.players-list {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-/* .players-list h3 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-} */
-
-.players-list ul {
+.messages-box ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column; /* Встановлюємо вертикальне розташування */
 }
 
-.players-list li {
-  margin: 5px 0;
-  font-size: 14px;
+.messages-box li {
+  margin-bottom: 0px;
+  margin-right: 0px;
+  padding: 7px;
+  border-radius: 5px;
+  /* max-width: 90%; */
+  word-wrap: break-word;
+  display: block;
+}
+
+.messages-box::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.messages-box::-webkit-scrollbar-thumb {
+  background: rgba(165, 123, 193, 0.244);
+  border-radius: 4px;
+}
+
+.messages-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2); 
+  border-radius: 4px;
+}
+
+
+h9 {
+  font-size: 22;
+  color: transparent;
+}
+
+.chat-input textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  width: 100%;
+  height: 33px;
+  border: 1px solid rgba(152, 110, 204, 0.5);
+  padding: 1px 20px;
+  background-color: transparent;
+  resize: none;
+  border-radius: 50px;
+  text-align: center;
+  line-height: 33px;
+  overflow: hidden;
+}
+
+.chat-input textarea::placeholder {
+  color: rgba(217, 200, 238, 0.5);
+  text-align: left;
 }
 

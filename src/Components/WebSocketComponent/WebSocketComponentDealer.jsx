@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState } from "react";
 import "./WebSocketComponentDealer.css";
+import WebSocketService from "../../WebSocketService";
 
 const Suit = {
-  CLUBS: "clubs",
-  DIAMONDS: "diamonds",
-  HEARTS: "hearts",
-  SPADES: "spades",
+  0: "clubs",
+  1: "diamonds",
+  2: "hearts",
+  3: "spades",
 };
 
 const Rank = {
@@ -25,64 +26,55 @@ const Rank = {
 };
 
 const WebSocketComponentDealer = () => {
-  const [cards, setCards] = useState([]);
+  const [communityCards, setCommunityCards] = useState([]);
+  const [privateCards, setPrivateCards] = useState([]);
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/api/game/card");
-        const data = await response.json();
-
-        if (data.actionType === 2) {
-          handleCardData(data);
-        }
-      } catch (error) {
-        console.error("Error fetching cards:", error);
-      }
-    };
-
-    fetchCards();
-    const intervalId = setInterval(fetchCards, 5000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
 
   const handleCardData = (data) => {
-    const { ordinalPBS } = data;
+    const newCard = {
+      suit: data.ordinalCard.suit,
+      rank: data.ordinalCard.rank,
+    };
 
-    const updatedCards = ordinalPBS.map((card) => {
-      const suit = Suit[card.suit]; // Виправлено
-      const rank = Rank[card.rank]; // Виправлено
-      const imagePath = `/src/Components/Assets/suits/${suit}_${rank}.png`; // Виправлено
-
-      return { ...card, imagePath };
-    });
-
-    setCards(updatedCards);
+    if (data.actionType === 1) {
+      setCommunityCards((prev) => [...prev, newCard]);
+    } else if (data.actionType === 0) {
+      setPrivateCards((prev) => [...prev, newCard]);
+    }
   };
+
+  useEffect(() => {
+    const gameId = sessionStorage.getItem("lobbyId"); 
+    const playerId = sessionStorage.getItem("playerId");
+
+    if (gameId && playerId) {
+      WebSocketService.connect(gameId, playerId, handleCardData);
+    }
+  }, []);
 
   return (
     <div className="game-table-container">
       <div className="cards-container">
-        {cards.length === 0 ? (
-          <p>No cards to display</p>
-        ) : (
-          cards.map((card, index) => (
-            <div
-              key={index}
-              className="card"
-              style={{ top: `${index * 20}px`, left: `${index * 30}px` }}
-            >
-              <img
-                src={card.imagePath}
-                alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
-                className="card-image"
-              />
-            </div>
-          ))
-        )}
+        {communityCards.map((card, index) => (
+          <div key={index} className="card">
+            <img
+              src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
+              alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
+              className="card-image"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="private-cards-container">
+        {privateCards.map((card, index) => (
+          <div key={index} className="card">
+            <img
+              src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
+              alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
+              className="card-image"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

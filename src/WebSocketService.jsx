@@ -15,7 +15,7 @@ class WebSocketService {
 
     this.client = new Client({
       brokerURL: "ws://localhost:8080/ws",
-      reconnectDelay: 5000, // Reconnect automatically
+      reconnectDelay: 5000,
       onConnect: () => {
         console.log("WebSocket Connected to Game:", gameId);
         this.subscribeToGame(gameId, playerId, onMessageReceived);
@@ -39,13 +39,13 @@ class WebSocketService {
     
 
     this.table = this.client.subscribe(game, (message) => {
-      const data = message.body;
-      onMessageReceived(data, 0);
+      const data = JSON.parse(message.body);
+      onMessageReceived(data);
     });
 
     this.hole = this.client.subscribe(player, (message) => {
-        const data = message.body;
-        onMessageReceived(data, 1);
+        const data = JSON.parse(message.body);
+        onMessageReceived(data);
       });
 
   }

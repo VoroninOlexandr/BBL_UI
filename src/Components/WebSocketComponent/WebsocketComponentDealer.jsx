@@ -28,22 +28,42 @@ const Rank = {
 const WebSocketComponentDealer = ({ players }) => {
   const [communityCards, setCommunityCards] = useState([]);
   const [privateCards, setPrivateCards] = useState([]);
-  const [pot, setPot] = useState(Math.floor(Math.random() * 5000) + 1000);
+  const [pot, setPot] = useState(0);
   const [playerBalances, setPlayerBalances] = useState(
-    players.map((player) => ({ ...player, balance: Math.floor(Math.random() * 5000) + 1000 }))
+    players.map((player) => ({ ...player, balance: 1000}))
   );
+  const webSocketService = new WebSocketService();
 
   const handleCardData = (data) => {
-    const newCard = {
-      suit: data.ordinalCard.suit,
-      rank: data.ordinalCard.rank,
-    };
-
     if (data.actionType === 1) {
+      const newCard = {
+        suit: data.ordinalCard.suit,
+        rank: data.ordinalCard.rank,
+      };
+
       setCommunityCards((prev) => [...prev, newCard]);
-    } else if (data.actionType === 0) {
+    }
+    
+    else if (data.actionType === 0) {
+      const newCard = {
+        suit: data.ordinalCard.suit,
+        rank: data.ordinalCard.rank,
+      };
+
       setPrivateCards((prev) => [...prev, newCard]);
     }
+    
+    else if (data.actionType === 3) {
+      console.log("Carti");
+      const { playerId, amount, newPot } = data;
+      setPlayerBalances((prevBalances) =>
+        prevBalances.map((player) =>
+          player.id === playerId ? { ...player, balance: player.balance - amount } : player
+        )
+      );
+
+      setPot(() => newPot);
+      }
   };
 
   useEffect(() => {
@@ -51,7 +71,7 @@ const WebSocketComponentDealer = ({ players }) => {
     const playerId = sessionStorage.getItem("playerId");
 
     if (gameId && playerId) {
-      WebSocketService.connect(gameId, playerId, handleCardData);
+      webSocketService.connect(gameId, playerId, handleCardData);
     }
   }, []);
 

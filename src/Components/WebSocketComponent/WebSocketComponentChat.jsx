@@ -59,7 +59,6 @@ const WebSocketComponentChat = () => {
   return (
     <div className="chat-container">
       <div className="messages-box">
-        <h9>Messages:</h9>
         <ul>
           {messages.map((msg, index) => (
             <li key={index}>

@@ -20,29 +20,56 @@
 
 .table {
   position: absolute;
-  top: 42.5%;
-  left: 50.5%;
+  top: 40%;
+  left: 50%;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* .game-table-container {
+    width: 800px;
+    height: 600px; 
+    position: absolute;
+    top: 30%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #2a2a2a; 
+    border-radius: 10px; 
+} */
+
+.pot-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: transparent;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
   z-index: 2;
 }
 
 .cards-container {
   display: flex;
-  gap: 12px;
+  gap: 10.5px;
   position: absolute;
-  top: 44.6%;
-  left: 35.5%;
+  top: 46.3%;
+  left: 36.3%;
   transform: translateY(-50%);
   z-index: 3;
 }
 
 .card-image {
   width: 85px;
-  height: 130px;
+  height: 100%;
   background-size: cover;
   border-radius: 8px;
+  z-index: 3;
 }
 
 .private-cards-container {
@@ -269,4 +296,3 @@ h9 {
   color: rgba(217, 200, 238, 0.5);
   text-align: left;
 }
-

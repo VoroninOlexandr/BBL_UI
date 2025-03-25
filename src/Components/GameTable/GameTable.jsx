@@ -5,34 +5,34 @@ import WebSocketComponentDealer from "../WebSocketComponent/WebSocketComponentDe
 import BetControls from "./BetControls";
 
 const positionsByPlayerCount = {
-  1: [{ bottom: "9%", left: "49.5%", transform: "translateX(-50%)" }],
+  1: [{ bottom: "9%", left: "50%", transform: "translateX(-60%)" }],
   2: [
-    { bottom: "9%", left: "49.5%", transform: "translateX(-50%)" },
-    { top: "4%", left: "49.5%", transform: "translateX(-50%)" },
+    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
+    { top: "5%", left: "50%", transform: "translateX(-60%)" },
   ],
   3: [
-    { bottom: "9%", left: "49.5%", transform: "translateX(-50%)" },
+    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
     { top: "21%", left: "17%" },
     { top: "21%", right: "17%" },
   ],
   4: [
-    { bottom: "9%", left: "49.5%", transform: "translateX(-50%)" },
+    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
     { top: "21%", left: "17%" },
-    { top: "4%", left: "49.5%", transform: "translateX(-50%)" },
+    { top: "5%", left: "50%", transform: "translateX(-60%)" },
     { top: "21%", right: "17%" },
   ],
   5: [
-    { bottom: "9%", left: "49.5%", transform: "translateX(-50%)" },
+    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
     { bottom: "28%", left: "17%" },
-    { top: "21%", left: "16%" },
+    { top: "21%", left: "17%" },
     { top: "21%", right: "17%" },
     { bottom: "28%", right: "17%" },
   ],
   6: [
-    { bottom: "9%", left: "49.5%", transform: "translateX(-50%)" },
+    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
     { bottom: "28%", left: "17%" },
     { top: "21%", left: "17%" },
-    { top: "4%", left: "49.5%", transform: "translateX(-50%)" },
+    { top: "5%", left: "50%", transform: "translateX(-60%)" },
     { top: "21%", right: "17%" },
     { bottom: "28%", right: "17%" },
   ],
@@ -41,23 +41,17 @@ const positionsByPlayerCount = {
 const GameTable = () => {
   const [players, setPlayers] = useState([]);
 
-
-   useEffect(() => {
-      const handleWheel = (e) => {
-        if (e.ctrlKey) {
-          e.preventDefault(); 
-        }
-      };
-      window.addEventListener("wheel", handleWheel, { passive: false });
-      return () => {
-        window.removeEventListener("wheel", handleWheel);
-      };
-    }, []); 
-    
-    useEffect(() => {
-      fetchLobbies();
-    }, []);
-
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault(); 
+      }
+    };
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   useEffect(() => {
     const lobbyId = sessionStorage.getItem("lobbyId");
@@ -74,6 +68,7 @@ const GameTable = () => {
           id: p.id,
           name: p.nickname,
           avatar: "/src/Components/Assets/player-icon.png",
+          balance: Math.floor(Math.random() * 5000) + 1000, 
         }));
 
         const mainPlayerIndex = sortedPlayers.findIndex(p => p.id === playerId);
@@ -81,7 +76,7 @@ const GameTable = () => {
         if (mainPlayerIndex !== -1) {
           sortedPlayers = [
             sortedPlayers[mainPlayerIndex], 
-            ...sortedPlayers.slice(mainPlayerIndex + 1), 
+            ...sortedPlayers.slice(mainPlayerIndex + 1),
             ...sortedPlayers.slice(0, mainPlayerIndex)
           ];
         }
@@ -107,10 +102,7 @@ const GameTable = () => {
           className="table"
         />
 
-        {/* Карти в центрі */}
-        <div className="cards_container">
-          <WebSocketComponentDealer />
-        </div>
+        <WebSocketComponentDealer players={players} />
 
         {players.length === 0 ? (
           <p>No players in the game yet.</p>
@@ -123,6 +115,7 @@ const GameTable = () => {
             >
               <img src={player.avatar} alt={player.name} className="avatar" />
               <span className="player-name">{player.name}</span>
+              <span className="player-balance">${player.balance}</span>
             </div>
           ))
         )}
@@ -133,6 +126,5 @@ const GameTable = () => {
     </div>
   );
 };
-
 
 export default GameTable;

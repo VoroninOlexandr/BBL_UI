@@ -18,10 +18,7 @@ const LoginForm = () => {
             window.removeEventListener("wheel", handleWheel);
           };
         }, []); 
-        
-        useEffect(() => {
-          fetchLobbies();
-        }, []);
+
 
         
 

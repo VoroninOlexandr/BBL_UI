@@ -30,9 +30,6 @@ const HomePage = () => {
     fetchLobbies();
   }, []);
 
-  useEffect(() => {
-    fetchLobbies();
-  }, []);
 
 
   const fetchLobbies = async () => {

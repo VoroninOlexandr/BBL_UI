@@ -3,6 +3,7 @@ import "./GameTable.css";
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
 import WebSocketComponentDealer from "../WebSocketComponent/WebSocketComponentDealer";
 import BetControls from "./BetControls";
+import WebSocketService from "../../WebSocketService";
 
 const positionsByPlayerCount = {
   1: [{ bottom: "9%", left: "50%", transform: "translateX(-60%)" }],
@@ -40,6 +41,19 @@ const positionsByPlayerCount = {
 
 const GameTable = () => {
   const [players, setPlayers] = useState([]);
+  const webSocketService = new WebSocketService();
+
+  const changePot = (data) => {
+    if (data.actionType === 3) {
+      console.log("Pushak");
+      const { playerId, amount, newPot} = data;
+      setPlayers((prevPlayers) =>
+        prevPlayers.map((player) =>
+          player.id === playerId ? { ...player, balance: player.balance - amount } : player
+        )
+      );
+  }
+};
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -57,7 +71,9 @@ const GameTable = () => {
     const lobbyId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
-    if (!lobbyId || !playerId) return;
+    if (lobbyId && playerId) {
+      webSocketService.connect(lobbyId, playerId, changePot);
+    }
 
     fetch(`http://localhost:8080/api/games/get/${lobbyId}`)
       .then((response) => response.json())
@@ -68,7 +84,7 @@ const GameTable = () => {
           id: p.id,
           name: p.nickname,
           avatar: "/src/Components/Assets/player-icon.png",
-          balance: Math.floor(Math.random() * 5000) + 1000, 
+          balance: 1000,
         }));
 
         const mainPlayerIndex = sortedPlayers.findIndex(p => p.id === playerId);

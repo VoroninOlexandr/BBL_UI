@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./WebSocketComponentDealer.css";
 import WebSocketService from "../../WebSocketService";
 
@@ -25,10 +25,13 @@ const Rank = {
   12: "ACE",
 };
 
-const WebSocketComponentDealer = () => {
+const WebSocketComponentDealer = ({ players }) => {
   const [communityCards, setCommunityCards] = useState([]);
   const [privateCards, setPrivateCards] = useState([]);
-
+  const [pot, setPot] = useState(Math.floor(Math.random() * 5000) + 1000);
+  const [playerBalances, setPlayerBalances] = useState(
+    players.map((player) => ({ ...player, balance: Math.floor(Math.random() * 5000) + 1000 }))
+  );
 
   const handleCardData = (data) => {
     const newCard = {
@@ -44,7 +47,7 @@ const WebSocketComponentDealer = () => {
   };
 
   useEffect(() => {
-    const gameId = sessionStorage.getItem("lobbyId"); 
+    const gameId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
     if (gameId && playerId) {
@@ -54,6 +57,8 @@ const WebSocketComponentDealer = () => {
 
   return (
     <div className="game-table-container">
+      <div className="pot-container">Pot: ${pot}</div>
+
       <div className="cards-container">
         {communityCards.map((card, index) => (
           <div key={index} className="card">
@@ -65,6 +70,7 @@ const WebSocketComponentDealer = () => {
           </div>
         ))}
       </div>
+
       <div className="private-cards-container">
         {privateCards.map((card, index) => (
           <div key={index} className="card">

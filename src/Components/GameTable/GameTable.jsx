@@ -53,6 +53,10 @@ const GameTable = () => {
         )
       );
   }
+
+  if (data.actionType === 6){
+    
+  }
 };
 
   useEffect(() => {
@@ -137,7 +141,7 @@ const GameTable = () => {
         )}
       </div>
 
-      <BetControls />
+      <BetControls  players={players}/>
       <WebSocketComponentChat />
     </div>
   );

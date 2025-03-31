@@ -12,7 +12,6 @@ class WebSocketService {
       console.log("WebSocket already connected!");
       return; 
     }
-
     this.client = new Client({
       brokerURL: "ws://localhost:8080/ws",
       reconnectDelay: 5000,
@@ -51,6 +50,7 @@ class WebSocketService {
   }
 
   sendMessage(gameId, message) {
+    if (!this.client) console.log("Chumak");
     if (!this.client || !this.client.active) {
       console.error("WebSocket is not connected!");
       return;

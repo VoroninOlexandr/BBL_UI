@@ -1,28 +1,78 @@
 import React, { useEffect, useState } from "react";
-import "./BetControls.css"
+import "./BetControls.css";
 import WebSocketService from "../../WebSocketService";
 import { useGame } from "./GameContext";
 
 const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   const [raiseAmount, setRaiseAmount] = useState(minRaise);
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
+  const [isPlayerTurn, setIsPlayerTurn] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
   const webSocketService = new WebSocketService();
 
-  const { players, balances } = useGame();
-  console.log("pushachki:", players);
+  const { players } = useGame();
 
   const handlePlayerTurn = (data) => {
-    if (data.actionType === 5){}
+    console.log("Player turn data:", data.playerId, data.actionType);
+    const playerId = sessionStorage.getItem("playerId");
+    console.log("Player ID from session storage:", playerId);
+    if (data.actionType === 5 && data.playerId === playerId) {
+      setIsPlayerTurn(true);
+      setShowButtons(true);
+      console.log("Player's turn:", data.playerId, "playerId", playerId);
+    }
   };
 
+  const handleFold = () => {
+    const gameId = sessionStorage.getItem("lobbyId");
+    const playerId = sessionStorage.getItem("playerId");
+
+    const message = {
+      actionType: 4, // Fold
+      playerId,
+      gameId,
+    };
+    console.log("Fold message:", message);
+    webSocketService.sendMessage(gameId, message);
+    setIsPlayerTurn(false);
+    setShowButtons(false);
+  };
+
+  const handleCall = () => {
+    const gameId = sessionStorage.getItem("lobbyId");
+    const playerId = sessionStorage.getItem("playerId");
+
+    const message = {
+      actionType: 3, // Call
+      playerId,
+      gameId,
+    };
+    console.log("Call message:", message);
+
+    webSocketService.sendMessage(gameId, message);
+    setIsPlayerTurn(false);
+    setShowButtons(false);
+  };
+
+  const handleRaise = () => {
+    const gameId = sessionStorage.getItem("lobbyId");
+    const playerId = sessionStorage.getItem("playerId");
+
+    const message = {
+      actionType: 3, // Raise
+      playerId,
+      gameId,
+      amount: raiseAmount,
+    };
+    console.log("Raise message:", message);
+    webSocketService.sendMessage(gameId, message);
+    setShowRaiseSlider(false);
+    setIsPlayerTurn(false);
+    setShowButtons(false);
+  };
 
   const handleRaiseClick = () => {
     setShowRaiseSlider(true);
-  };
-
-  const handleConfirmRaise = () => {
-    onRaise(raiseAmount);
-    setShowRaiseSlider(false);
   };
 
   const handleCloseSlider = () => {
@@ -36,14 +86,24 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
     if (gameId && playerId) {
       webSocketService.connect(gameId, playerId, handlePlayerTurn);
     }
-
+    
   }, []);
 
   return (
     <div className="player-actions">
-      <button onClick={onFold}>Fold</button>
-      <button onClick={onCall}>Call</button>
-      <button onClick={handleRaiseClick}>Raise</button>
+      {showButtons && (
+        <>
+          <button onClick={handleFold} disabled={!isPlayerTurn}>
+            Fold
+          </button>
+          <button onClick={handleCall} disabled={!isPlayerTurn}>
+            Call
+          </button>
+          <button onClick={handleRaiseClick} disabled={!isPlayerTurn}>
+            Raise
+          </button>
+        </>
+      )}
 
       {showRaiseSlider && (
         <div className="raise-controls">
@@ -58,7 +118,7 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
             onChange={(e) => setRaiseAmount(Number(e.target.value))}
           />
           <span>{raiseAmount}</span>
-          <button onClick={handleConfirmRaise}>Confirm</button>
+          <button onClick={handleRaise}>Confirm</button>
         </div>
       )}
     </div>

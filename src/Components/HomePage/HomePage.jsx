@@ -10,21 +10,18 @@ const HomePage = () => {
   const navigate = useNavigate();
 
  useEffect(() => {
-    // Блокування масштабування при натисканні Ctrl + Scroll
     const handleWheel = (e) => {
       if (e.ctrlKey) {
-        e.preventDefault(); // Запобігаємо стандартному дії масштабування
+        e.preventDefault();
       }
     };
 
-    // Додаємо обробник події
     window.addEventListener("wheel", handleWheel, { passive: false });
 
-    // Очищуємо обробник події при розмонтуванні компонента
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, []); // Виконати тільки один раз після рендеру компонента
+  }, []); 
   
   useEffect(() => {
     fetchLobbies();

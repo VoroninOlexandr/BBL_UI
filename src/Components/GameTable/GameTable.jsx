@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./GameTable.css";
+import { useGame } from "./GameContext"; // імпортуємо контекст
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
 import WebSocketComponentDealer from "../WebSocketComponent/WebSocketComponentDealer";
 import BetControls from "./BetControls";
-import WebSocketService from "../../WebSocketService";
 
 const positionsByPlayerCount = {
   1: [{ bottom: "9%", left: "50%", transform: "translateX(-60%)" }],
@@ -40,29 +40,13 @@ const positionsByPlayerCount = {
 };
 
 const GameTable = () => {
-  const [players, setPlayers] = useState([]);
-  const webSocketService = new WebSocketService();
-
-  const changePot = (data) => {
-    if (data.actionType === 3) {
-      console.log("Pushak");
-      const { playerId, amount, newPot} = data;
-      setPlayers((prevPlayers) =>
-        prevPlayers.map((player) =>
-          player.id === playerId ? { ...player, balance: player.balance - amount } : player
-        )
-      );
-  }
-
-  if (data.actionType === 6){
-    
-  }
-};
+  
+  const { players, balances, setPlayers, setBalances } = useGame();
 
   useEffect(() => {
     const handleWheel = (e) => {
       if (e.ctrlKey) {
-        e.preventDefault(); 
+        e.preventDefault();
       }
     };
     window.addEventListener("wheel", handleWheel, { passive: false });
@@ -75,9 +59,7 @@ const GameTable = () => {
     const lobbyId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
-    if (lobbyId && playerId) {
-      webSocketService.connect(lobbyId, playerId, changePot);
-    }
+    if (!lobbyId || !playerId) return;
 
     fetch(`http://localhost:8080/api/games/get/${lobbyId}`)
       .then((response) => response.json())
@@ -88,14 +70,13 @@ const GameTable = () => {
           id: p.id,
           name: p.nickname,
           avatar: "/src/Components/Assets/player-icon.png",
-          balance: 1000,
         }));
 
         const mainPlayerIndex = sortedPlayers.findIndex(p => p.id === playerId);
 
         if (mainPlayerIndex !== -1) {
           sortedPlayers = [
-            sortedPlayers[mainPlayerIndex], 
+            sortedPlayers[mainPlayerIndex],
             ...sortedPlayers.slice(mainPlayerIndex + 1),
             ...sortedPlayers.slice(0, mainPlayerIndex)
           ];
@@ -105,6 +86,10 @@ const GameTable = () => {
       })
       .catch((error) => console.error("Error fetching players:", error));
   }, []);
+
+  const updateBalances = (newBalances) => {
+    setBalances(newBalances);
+  };
 
   const positions = positionsByPlayerCount[players.length] || [];
 
@@ -122,7 +107,7 @@ const GameTable = () => {
           className="table"
         />
 
-        <WebSocketComponentDealer players={players} />
+        <WebSocketComponentDealer players={players} updateBalances={updateBalances} />
 
         {players.length === 0 ? (
           <p>No players in the game yet.</p>
@@ -135,13 +120,15 @@ const GameTable = () => {
             >
               <img src={player.avatar} alt={player.name} className="avatar" />
               <span className="player-name">{player.name}</span>
-              <span className="player-balance">${player.balance}</span>
+              <span className="player-balance">
+                ${balances.find((p) => p.id === player.id)?.balance || 0}
+              </span>
             </div>
           ))
         )}
       </div>
 
-      <BetControls  players={players}/>
+      <BetControls />
       <WebSocketComponentChat />
     </div>
   );

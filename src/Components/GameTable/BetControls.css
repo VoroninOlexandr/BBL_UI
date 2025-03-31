@@ -102,10 +102,10 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding: 10px;
-    background-color: #eeeeee;
+    padding: 0px;
+    background-color: transparent;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: relative; /* Positioning for the close button */
     z-index: 9999; /* Make sure slider also appears on top */
@@ -117,7 +117,7 @@
     top: 5px;
     right: 5px;
     font-size: 20px;
-    color: #888;
+    color: #ff0000;
     background: none;
     border: none;
     cursor: pointer;
@@ -125,7 +125,7 @@
   }
   
   .raise-controls .close-button:hover {
-    color: #f44336; /* Red color on hover */
+    color: #ff0000; /* Red color on hover */
   }
   
   /* Style for range input */
@@ -134,7 +134,7 @@
     margin: 0 10px;
     -webkit-appearance: none;
     appearance: none;
-    background-color: #ddd;
+    background-color: transparent;
     height: 10px;
     border-radius: 5px;
     cursor: pointer;

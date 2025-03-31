@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./BetControls.css"
 import WebSocketService from "../../WebSocketService";
+import { useGame } from "./GameContext";
 
 const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   const [raiseAmount, setRaiseAmount] = useState(minRaise);
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
   const webSocketService = new WebSocketService();
+
+  const { players, balances } = useGame();
+  console.log("pushachki:", players);
 
   const handlePlayerTurn = (data) => {
     if (data.actionType === 5){}

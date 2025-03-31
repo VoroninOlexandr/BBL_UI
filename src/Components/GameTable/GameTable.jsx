@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./GameTable.css";
+import { useGame } from "./GameContext";
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
 import WebSocketComponentDealer from "../WebSocketComponent/WebSocketComponentDealer";
 import BetControls from "./BetControls";
@@ -40,7 +41,7 @@ const positionsByPlayerCount = {
 };
 
 const GameTable = () => {
-  const [players, setPlayers] = useState([]);
+  const { players, balances, setPlayers, setBalances } = useGame();
   const webSocketService = new WebSocketService();
 
   const changePot = (data) => {
@@ -106,6 +107,10 @@ const GameTable = () => {
       .catch((error) => console.error("Error fetching players:", error));
   }, []);
 
+  const updateBalances = (newBalances) => {
+    setBalances(newBalances);
+  };
+
   const positions = positionsByPlayerCount[players.length] || [];
 
   return (
@@ -122,7 +127,7 @@ const GameTable = () => {
           className="table"
         />
 
-        <WebSocketComponentDealer players={players} />
+        <WebSocketComponentDealer players={players} updateBalances={updateBalances} />
 
         {players.length === 0 ? (
           <p>No players in the game yet.</p>

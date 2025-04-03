@@ -30,7 +30,7 @@ const WebSocketComponentDealer = ({ players }) => {
   const [privateCards, setPrivateCards] = useState([]);
   const [pot, setPot] = useState(0);
   const [playerBalances, setPlayerBalances] = useState(
-    players.map((player) => ({ ...player, balance: 1000}))
+    players.map((player) => ({ ...player, balance: 1000 }))
   );
   const webSocketService = new WebSocketService();
 
@@ -40,36 +40,27 @@ const WebSocketComponentDealer = ({ players }) => {
         suit: data.ordinalCard.suit,
         rank: data.ordinalCard.rank,
       };
-
       setCommunityCards((prev) => [...prev, newCard]);
-    }
-    
-    else if (data.actionType === 0) {
+    } else if (data.actionType === 0) {
       const newCard = {
         suit: data.ordinalCard.suit,
         rank: data.ordinalCard.rank,
       };
-
       setPrivateCards((prev) => [...prev, newCard]);
-    }
-    
-    else if (data.actionType === 3) {
-      console.log("Carti");
+    } else if (data.actionType === 3) {
       const { playerId, amount, newPot } = data;
       setPlayerBalances((prevBalances) =>
         prevBalances.map((player) =>
           player.id === playerId ? { ...player, balance: player.balance - amount } : player
         )
       );
-
       setPot(() => newPot);
-      }
+    }
   };
 
   useEffect(() => {
     const gameId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
-
     if (gameId && playerId) {
       webSocketService.connect(gameId, playerId, handleCardData);
     }
@@ -81,7 +72,7 @@ const WebSocketComponentDealer = ({ players }) => {
 
       <div className="cards-container">
         {communityCards.map((card, index) => (
-          <div key={index} className="card">
+          <div key={index} className="card public-card">
             <img
               src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
@@ -93,7 +84,7 @@ const WebSocketComponentDealer = ({ players }) => {
 
       <div className="private-cards-container">
         {privateCards.map((card, index) => (
-          <div key={index} className="card">
+          <div key={index} className="card-private-card">
             <img
               src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}

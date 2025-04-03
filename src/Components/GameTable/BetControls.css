@@ -1,117 +1,88 @@
-/* Container for player actions */
+
 .player-actions {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px; /* Space between buttons */
-    flex-wrap: wrap; /* Allow buttons to wrap if the container is too small */
+    gap: 20px ;
+    flex-wrap: wrap;
     margin: 20px 0;
     
-    /* Position the container fixed on top of the page */
     position: fixed;
-    bottom: 40px; /* Position it near the bottom */
+    bottom: 40px;
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    z-index: 9999; /* Make sure it's on top of everything */
+    transform: translateX(-50%); 
+    z-index: 9999; 
   }
-  
-  /* Style for buttons */
-  .player-actions button {
-    padding: 5px 27px;
-    font-size: 16px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  /* Specific button styles */
-  .player-actions button:hover {
-    background-color: #f1f1f1; /* Light hover effect */
-    transform: scale(1.05); /* Slight button scaling on hover */
-  }
-  
+
   .player-actions button:nth-child(1) {
-    background-color: transparent; /* Make the button transparent */
-    color: #D8203F; /* Red text color */
-    border: 1.5px solid #D8203F; /* Red border */
+    background-color: transparent;
+    color: #D8203F; 
+    border: 1.5px solid #D8203F; 
     padding: 5px 25px;
     font-size: 16px;
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
   
-    /* Apply glowing effect to the border */
     box-shadow: 0 0 5px rgba(216, 32, 63, 0.1), 0 0 20px rgba(216, 32, 63, 0.2);
     transform: translateX(-35%)
   }
   
   .player-actions button:nth-child(1):hover {
-    background-color: rgba(216, 32, 63, 0.1); /* Light red background on hover */
-    box-shadow: 0 0 20px rgba(216, 32, 63, 0.01), 0 0 30px rgba(216, 32, 63, 0.5); /* Stronger glow on hover */
+    background-color: rgba(216, 32, 63, 0.1); 
+    box-shadow: 0 0 20px rgba(216, 32, 63, 0.01), 0 0 30px rgba(216, 32, 63, 0.5);
   }
   
-  /* Call button style */
 .player-actions button:nth-child(2) {
-    background-color: transparent; /* Make the button transparent */
-    color: #0b9745; /* Green text color */
-    border: 1.5px solid #0b9745; /* Green border */
+    background-color: transparent;
+    color: #0b9745;
+    border: 1.5px solid #0b9745;
     padding: 5px 25px;
     font-size: 16px;
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
   
-    /* Apply glowing effect to the border */
     box-shadow: 0 0 5px rgba(11, 151, 69, 0.1), 0 0 20px rgba(11, 151, 69, 0.2);
     transform: translateX(150%);
   }
   
-  /* Call button hover state */
   .player-actions button:nth-child(2):hover {
-    background-color: rgba(11, 151, 69, 0.1); /* Light green background on hover */
-    box-shadow: 0 0 20px rgba(11, 151, 69, 0.1), 0 0 30px rgba(11, 151, 69, 0.3); /* Stronger green glow */
+    background-color: rgba(11, 151, 69, 0.1);
+    box-shadow: 0 0 20px rgba(11, 151, 69, 0.1), 0 0 30px rgba(11, 151, 69, 0.3);
   }
   
-  /* Raise button style */
   .player-actions button:nth-child(3) {
-    background-color: transparent; /* Make the button transparent */
-    color: #ffffff; /* Orange text color */
-    border: 1.3px solid #fefefebb; /* Orange border */
+    background-color: transparent;
+    color: #ffffff;
+    border: 1.3px solid #fefefebb;
     padding: 5px 25px;
     font-size: 16px;
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
   
-    /* Apply glowing effect to the border */
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1);
     transform: translateX(130%);
   }
   
-  /* Raise button hover state */
   .player-actions button:nth-child(3):hover {
-    background-color: rgba(255, 255, 255,); /* Light orange background on hover */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1); /* Stronger orange glow */
-  }
-  
-  
-  /* Slider controls when raising */
+    background-color: rgba(255, 255, 255,);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
+  } 
+
+ 
   .raise-controls {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 10px;
-    padding: 10px;
-    background-color: #eeeeee;
+    padding: 0px;
+    transform: translateY(-60%);
+    background-color: #eeeeee00;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: relative; /* Positioning for the close button */
-    z-index: 9999; /* Make sure slider also appears on top */
-  }
+    position: relative;
+    z-index: 9999;
+  } 
   
-  /* Close button for slider */
   .raise-controls .close-button {
     position: absolute;
     top: 5px;
@@ -122,13 +93,13 @@
     border: none;
     cursor: pointer;
     transition: color 0.3s;
-  }
+  } 
   
   .raise-controls .close-button:hover {
-    color: #f44336; /* Red color on hover */
+    color: #f44336; 
   }
   
-  /* Style for range input */
+ 
   .raise-controls input[type="range"] {
     width: 200px;
     margin: 0 10px;
@@ -144,16 +115,14 @@
     outline: none;
   }
   
-  /* Style for span showing current value */
   .raise-controls span {
     font-size: 16px;
     font-weight: bold;
-  }
+  } */
   
-  /* Style for confirm button */
   .raise-controls button {
     background-color: #2196f3;
-    color: white;
+    color: white; 
     padding: 8px 16px;
     font-size: 14px;
     border-radius: 5px;
@@ -168,4 +137,4 @@
   button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-  }
+  } 

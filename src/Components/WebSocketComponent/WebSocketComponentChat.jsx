@@ -7,6 +7,7 @@ const WebSocketComponentChat = () => {
   const [message, setMessage] = useState("");
   const [nickname, setNickname] = useState("");
   const [stompClient, setStompClient] = useState(null);
+  const sendSound = new Audio("/src/Components/Assets/sounds/chat.mp3");
 
   useEffect(() => {
     const storedNickname = sessionStorage.getItem("username");
@@ -52,6 +53,7 @@ const WebSocketComponentChat = () => {
         destination: "/app/sendMessage",
         body: JSON.stringify(chatMessage),
       });
+      sendSound.play();
       setMessage("");
     }
   };

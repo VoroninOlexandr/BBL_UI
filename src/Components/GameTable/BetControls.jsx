@@ -8,7 +8,7 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
   const [isPlayerTurn, setIsPlayerTurn] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
-  const webSocketService = new WebSocketService();
+  const [webSocketService] = useState(new WebSocketService());
 
   const { players } = useGame();
 
@@ -29,8 +29,8 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
 
     const message = {
       actionType: 4, // Fold
-      playerId,
-      gameId,
+      playerId : playerId,
+      gameId : gameId
     };
     console.log("Fold message:", message);
     webSocketService.sendMessage(gameId, message);
@@ -44,8 +44,9 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
 
     const message = {
       actionType: 3, // Call
-      playerId,
-      gameId,
+      playerId : playerId,
+      gameId : gameId,
+      amount : 0
     };
     console.log("Call message:", message);
 
@@ -62,7 +63,7 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
       actionType: 3, // Raise
       playerId,
       gameId,
-      amount: raiseAmount,
+      amount: raiseAmount
     };
     console.log("Raise message:", message);
     webSocketService.sendMessage(gameId, message);

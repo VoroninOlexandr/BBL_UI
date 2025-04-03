@@ -9,28 +9,22 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
- useEffect(() => {
-    // Блокування масштабування при натисканні Ctrl + Scroll
+  useEffect(() => {
     const handleWheel = (e) => {
       if (e.ctrlKey) {
-        e.preventDefault(); // Запобігаємо стандартному дії масштабування
+        e.preventDefault();
       }
     };
-
-    // Додаємо обробник події
+    
     window.addEventListener("wheel", handleWheel, { passive: false });
-
-    // Очищуємо обробник події при розмонтуванні компонента
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, []); // Виконати тільки один раз після рендеру компонента
-  
+  }, []);
+
   useEffect(() => {
     fetchLobbies();
   }, []);
-
-
 
   const fetchLobbies = async () => {
     try {
@@ -68,7 +62,6 @@ const HomePage = () => {
       sessionStorage.setItem("playerId", playerId);
       sessionStorage.setItem("gameId", gameId);
       sessionStorage.setItem("lobbyId", lobbyId);
-      
       navigate(`/table/${playerId}`);
     } catch (err) {
       setError("Failed to join the table.");
@@ -76,57 +69,57 @@ const HomePage = () => {
   };
 
   return (
-    <div className="home-page">
-      <h4>Lobby List</h4>
-      <h3>Choose available lobby from the list or create one</h3>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleAddLobby} className="create-lobby-form">
-        <input
-          type="text"
-          value={newLobbyName}
-          onChange={(e) => setNewLobbyName(e.target.value)}
-          placeholder="Enter lobby name"
-          required
-          className="lobby-input"
-        />
-        <button type="submit" className="create-lobby-button">Create</button>
-      </form>
-      <table className="lobby-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Number of Players</th>
-            <th>State</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {lobbies.length === 0 ? (
+    <div className="home-page-container">
+      <div className="home-page">
+        <h4>Lobby List</h4>
+        <h3>Choose available lobby from the list or create one</h3>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleAddLobby} className="create-lobby-form">
+          <input
+            type="text"
+            value={newLobbyName}
+            onChange={(e) => setNewLobbyName(e.target.value)}
+            placeholder="Enter lobby name"
+            required
+            className="lobby-input"
+          />
+          <button type="submit" className="create-lobby-button">Create</button>
+        </form>
+        <table className="lobby-table">
+          <thead>
             <tr>
-              <td colSpan="4" className="no-lobbies">No lobbies found</td>
+              <th>Name</th>
+              <th>Number of Players</th>
+              <th>State</th>
+              <th></th>
             </tr>
-          ) : (
-            lobbies.map((lobby) => (
-              <tr key={lobby.id}>
-                <td>{lobby.lobbyName}</td>
-                <td>{lobby.playerCount}</td>
-                <td >
-                {lobby.playerCount >= 6 ? '🔒' : '🔓'}
-                </td>
-                <td>
-                <button
-                onClick={() => handleJoinTable(lobby.id)}
-                disabled={lobby.playerCount >= 6} 
-                className={`join-lobby-button ${lobby.playerCount >= 6 ? 'disabled' : ''}`}
-                >
-                Join
-                </button>
-                </td>
+          </thead>
+          <tbody>
+            {lobbies.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="no-lobbies">No lobbies found</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              lobbies.map((lobby) => (
+                <tr key={lobby.id}>
+                  <td>{lobby.lobbyName}</td>
+                  <td>{lobby.playerCount}</td>
+                  <td>{lobby.playerCount >= 6 ? '🔒' : '🔓'}</td>
+                  <td>
+                    <button
+                      onClick={() => handleJoinTable(lobby.id)}
+                      disabled={lobby.playerCount >= 6}
+                      className={`join-lobby-button ${lobby.playerCount >= 6 ? 'disabled' : ''}`}
+                    >
+                      Join
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

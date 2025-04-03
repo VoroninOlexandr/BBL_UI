@@ -7,9 +7,9 @@ import BetControls from "./BetControls";
 import WebSocketService from "../../WebSocketService";
 
 const positionsByPlayerCount = {
-  1: [{ bottom: "9%", left: "50%", transform: "translateX(-60%)" }],
+  1: [{ bottom: "9%", left: "50%", transform: "translateX(-50%)" }],
   2: [
-    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
+    { bottom: "9%", left: "50%", transform: "translateX(-50%)" },
     { top: "5%", left: "50%", transform: "translateX(-60%)" },
   ],
   3: [
@@ -126,9 +126,9 @@ const GameTable = () => {
           alt="Poker Table"
           className="table"
         />
-
+  
         <WebSocketComponentDealer players={players} updateBalances={updateBalances} />
-
+  
         {players.length === 0 ? (
           <p>No players in the game yet.</p>
         ) : (
@@ -140,13 +140,16 @@ const GameTable = () => {
             >
               <img src={player.avatar} alt={player.name} className="avatar" />
               <span className="player-name">{player.name}</span>
-              <span className="player-balance">${player.balance}</span>
+              <span className="player-balance">
+                <img src="/src/Components/Assets/chip.png" alt="Chip" className="chip-icon" />
+                {player.balance}
+              </span>
             </div>
           ))
         )}
       </div>
-
-      <BetControls  players={players}/>
+  
+      <BetControls players={players} />
       <WebSocketComponentChat />
     </div>
   );

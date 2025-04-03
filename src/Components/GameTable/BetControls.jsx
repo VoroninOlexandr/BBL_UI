@@ -3,6 +3,10 @@ import "./BetControls.css";
 import WebSocketService from "../../WebSocketService";
 import { useGame } from "./GameContext";
 
+import foldSoundFile from "/src/Components/Assets/sounds/fold.mp3";
+import callSoundFile from "/src/Components/Assets/sounds/call.mp3";
+import raiseSoundFile from "/src/Components/Assets/sounds/raise.mp3";
+
 const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   const [raiseAmount, setRaiseAmount] = useState(minRaise);
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
@@ -12,18 +16,21 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
 
   const { players } = useGame();
 
+  const foldSound = new Audio(foldSoundFile);
+  const callSound = new Audio(callSoundFile);
+  const raiseSound = new Audio(raiseSoundFile);
+
   const handlePlayerTurn = (data) => {
     console.log("Player turn data:", data.playerId, data.actionType);
     const playerId = sessionStorage.getItem("playerId");
-    console.log("Player ID from session storage:", playerId);
     if (data.actionType === 5 && data.playerId === playerId) {
       setIsPlayerTurn(true);
       setShowButtons(true);
-      console.log("Player's turn:", data.playerId, "playerId", playerId);
     }
   };
 
   const handleFold = () => {
+    foldSound.play();
     const gameId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
@@ -32,13 +39,13 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
       playerId,
       gameId,
     };
-    console.log("Fold message:", message);
     webSocketService.sendMessage(gameId, message);
     setIsPlayerTurn(false);
     setShowButtons(false);
   };
 
   const handleCall = () => {
+    callSound.play();
     const gameId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
@@ -47,14 +54,13 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
       playerId,
       gameId,
     };
-    console.log("Call message:", message);
-
     webSocketService.sendMessage(gameId, message);
     setIsPlayerTurn(false);
     setShowButtons(false);
   };
 
   const handleRaise = () => {
+    raiseSound.play();
     const gameId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
@@ -64,7 +70,6 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
       gameId,
       amount: raiseAmount,
     };
-    console.log("Raise message:", message);
     webSocketService.sendMessage(gameId, message);
     setShowRaiseSlider(false);
     setIsPlayerTurn(false);
@@ -82,11 +87,9 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   useEffect(() => {
     const gameId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
-
     if (gameId && playerId) {
       webSocketService.connect(gameId, playerId, handlePlayerTurn);
     }
-    
   }, []);
 
   return (

@@ -39,7 +39,7 @@ const HomePage = () => {
     try {
       await axios.post("http://localhost:8080/api/games/create", {
         lobbyName: newLobbyName,
-        maxPlayers: maxPlayers
+        playerRequirement : maxPlayers
       });
       setNewLobbyName("");
       setMaxPlayers(2);

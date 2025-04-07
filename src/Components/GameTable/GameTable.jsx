@@ -53,12 +53,13 @@ const GameTable = () => {
           player.id === playerId ? { ...player, balance: player.balance - amount } : player
         )
       );
-  }
+    }
 
-  if (data.actionType === 6){
-    
-  }
-};
+    else if (data.actionType === 6){
+      console.log("Pushak joins");
+      fetchLobby();
+    }
+  };
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -72,13 +73,9 @@ const GameTable = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const lobbyId = sessionStorage.getItem("lobbyId");
+  const fetchLobby = () => {
     const playerId = sessionStorage.getItem("playerId");
-
-    if (lobbyId && playerId) {
-      webSocketService.connect(lobbyId, playerId, changePot);
-    }
+    const lobbyId = sessionStorage.getItem("lobbyId");
 
     fetch(`http://localhost:8080/api/games/get/${lobbyId}`)
       .then((response) => response.json())
@@ -103,9 +100,19 @@ const GameTable = () => {
         }
 
         setPlayers(sortedPlayers);
-      })
-      .catch((error) => console.error("Error fetching players:", error));
-  }, []);
+      });
+  }
+
+  useEffect(() => {
+    const lobbyId = sessionStorage.getItem("lobbyId");
+    const playerId = sessionStorage.getItem("playerId");
+
+    if (lobbyId && playerId) {
+      webSocketService.connect(lobbyId, playerId, changePot);
+    }
+
+    fetchLobby();
+  },[]);
 
   const updateBalances = (newBalances) => {
     setBalances(newBalances);

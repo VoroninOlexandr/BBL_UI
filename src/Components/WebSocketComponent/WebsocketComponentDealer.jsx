@@ -25,14 +25,24 @@ const Rank = {
   12: "ACE",
 };
 
+const BestHand = {
+  0 : "HIGH CARD",
+  1 : "PAIR",
+  2 : "TWO PAIRS",
+  3 : "THREE OF A KIND",
+  4 : "STRAIGHT",
+  5 : "FLUSH",
+  6 : "FULL HOUSE",
+  7 : "FOUR OF A KIND",
+  8 : "STRAIGHT FLUSH",
+  9 : "ROYAL FLUSH"
+};
+
 const WebSocketComponentDealer = ({ players }) => {
   const [communityCards, setCommunityCards] = useState([]);
   const [privateCards, setPrivateCards] = useState([]);
   const [pot, setPot] = useState(0);
-  const [bestHand, setBestHand] = useState(""); // 👈 новий стейт для найкращої комбінації
-  const [playerBalances, setPlayerBalances] = useState(
-    players.map((player) => ({ ...player, balance: 1000 }))
-  );
+  const [bestHand, setBestHand] = useState("");
   const [webSocketService] = useState(new WebSocketService());
 
   const handleCardData = (data) => {
@@ -47,21 +57,15 @@ const WebSocketComponentDealer = ({ players }) => {
         suit: data.ordinalCard.suit,
         rank: data.ordinalCard.rank,
       };
+      
       setPrivateCards((prev) => [...prev, newCard]);
     } else if (data.actionType === 2) {
-      if (data.PlayerBestHand) {
         setBestHand(data.PlayerBestHand);
-      }
+
     } else if (data.actionType === 3) {
       const { playerId, amount, newPot } = data;
-      setPlayerBalances((prevBalances) =>
-        prevBalances.map((player) =>
-          player.id === playerId
-            ? { ...player, balance: player.balance - amount }
-            : player
-        )
-      );
-      setPot(() => newPot);
+      console.log("Pot changed");
+      setPot(newPot);
     }
   };
 

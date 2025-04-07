@@ -193,6 +193,19 @@
   align-items: flex-end;
 }
 
+.best-hand-announcement {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffffc0; /* золото */
+  text-align: center;
+  margin-top: 1rem;
+  text-shadow: 1px 1px 2px #000;
+  position: absolute;
+  bottom: 20px;
+  left: 2%;
+  z-index: 999;
+}
+
 .messages-box {
   background: transparent;
   padding: 10px;

@@ -29,10 +29,11 @@ const WebSocketComponentDealer = ({ players }) => {
   const [communityCards, setCommunityCards] = useState([]);
   const [privateCards, setPrivateCards] = useState([]);
   const [pot, setPot] = useState(0);
+  const [bestHand, setBestHand] = useState(""); // 👈 новий стейт для найкращої комбінації
   const [playerBalances, setPlayerBalances] = useState(
     players.map((player) => ({ ...player, balance: 1000 }))
   );
-  const webSocketService = new WebSocketService();
+  const [webSocketService] = useState(new WebSocketService());
 
   const handleCardData = (data) => {
     if (data.actionType === 1) {
@@ -47,11 +48,17 @@ const WebSocketComponentDealer = ({ players }) => {
         rank: data.ordinalCard.rank,
       };
       setPrivateCards((prev) => [...prev, newCard]);
+    } else if (data.actionType === 2) {
+      if (data.PlayerBestHand) {
+        setBestHand(data.PlayerBestHand);
+      }
     } else if (data.actionType === 3) {
       const { playerId, amount, newPot } = data;
       setPlayerBalances((prevBalances) =>
         prevBalances.map((player) =>
-          player.id === playerId ? { ...player, balance: player.balance - amount } : player
+          player.id === playerId
+            ? { ...player, balance: player.balance - amount }
+            : player
         )
       );
       setPot(() => newPot);
@@ -69,6 +76,25 @@ const WebSocketComponentDealer = ({ players }) => {
   return (
     <div className="game-table-container">
       <div className="pot-container">Pot: ${pot}</div>
+
+      <div className="pot-container">Pot: ${pot}</div>
+
+<button
+  onClick={() =>
+    handleCardData({
+      actionType: 2,
+      PlayerBestHand: "TWO PAIRS"
+    })
+  }
+>
+  Test Best Hand
+</button>
+
+      {bestHand && (
+        <div className="best-hand-announcement">
+        {bestHand}
+        </div>
+      )}
 
       <div className="cards-container">
         {communityCards.map((card, index) => (

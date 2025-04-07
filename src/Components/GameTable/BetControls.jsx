@@ -13,6 +13,7 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   const [isPlayerTurn, setIsPlayerTurn] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [webSocketService] = useState(new WebSocketService());
+  const [amountToCall, setAmountToCall] = useState(0);
 
   const { players } = useGame();
 
@@ -24,8 +25,12 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
     console.log("Player turn data:", data.playerId, data.actionType);
     const playerId = sessionStorage.getItem("playerId");
     if (data.actionType === 5 && data.playerId === playerId) {
+      console.log(data);
       setIsPlayerTurn(true);
       setShowButtons(true);
+      setAmountToCall(data.currentBet);
+
+      console.log("Amount to call = ", amountToCall);
     }
   };
 
@@ -53,7 +58,7 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
       actionType: 3, // Call
       playerId : playerId,
       gameId : gameId,
-      amount : 0
+      amount : amountToCall
     };
     webSocketService.sendMessage(gameId, message);
     setIsPlayerTurn(false);
@@ -67,8 +72,8 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
 
     const message = {
       actionType: 3, // Raise
-      playerId,
-      gameId,
+      playerId : playerId,
+      gameId : gameId,
       amount: raiseAmount
     };
     webSocketService.sendMessage(gameId, message);

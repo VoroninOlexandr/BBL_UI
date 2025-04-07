@@ -15,6 +15,38 @@
   padding: 0px;
 }
 
+.lobby-column {
+  flex: 1;
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 400x
+}
+
+.player-count-select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #d2d2d222;
+  outline: none;
+  background-color: transparent;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.player-count-select:hover {
+  border-color: #5708ab63;
+}
+
+
+
+.player-count-lobby-select:focus {
+  border-color: #470fc0;
+  box-shadow: 0 0 3px rgba(95, 15, 193, 0.5);
+}
+
+
 .home-page {
   display: flex;
   flex-direction: column;
@@ -22,6 +54,108 @@
   width: 60%;
   max-width: 500px;
 }
+
+.lobby-headers {
+  width: 100%;
+  display: flex;
+  font-weight: bold;
+  gap: 0px;
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.6rem;
+ 
+}
+
+.clickable-lobby {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickable-lobby:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.03);
+}
+
+.clickable-lobby.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.lobby-list-container {
+  display: flex;
+  transform: translateX(25%);
+  flex-direction: column;
+  align-items: center;
+  width: 120%;
+}
+
+/* Кастомний скролбар для lobby-list */
+.lobby-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lobby-list::-webkit-scrollbar-track {
+  background: #1C1A28;
+  border-radius: 10px;
+}
+
+.lobby-list::-webkit-scrollbar-thumb {
+  background-color: #8967c56f;  
+  border-radius: 10px;
+  border: 2px solid #1C1A28;
+}
+
+.lobby-list::-webkit-scrollbar-thumb:hover {
+  background-color: #6e5981;
+}
+
+
+.lobby-card.even {
+  background-color: #2A2837;
+}
+
+.lobby-card.odd {
+  background-color: #1C1A28;
+}
+
+.lobby-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.lobby-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 2000px;
+  height: 60px;
+  background: #2A2837;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.lobby-column.name {
+  flex: 2;
+}
+
+.lobby-column.players {
+  flex: 1;
+}
+
+.lobby-column.state {
+  flex: 1;
+}
+
+
 
 h4 {
   font-family: 'Helvetica', sans-serif;
@@ -45,6 +179,11 @@ h3 {
   margin-left: 160px;
 }
 
+.lock-icon {
+  width: 16px; /* Змінюй це значення для регулювання ширини */
+  height: 16px; /* Змінюй це значення для регулювання висоти */
+}
+
 .create-lobby-form {
   display: flex;
   justify-content: flex-start;
@@ -55,7 +194,7 @@ h3 {
 }
 
 .lobby-input {
-  width: 390px;
+  width: 200px;
   height: 35px;
   padding: 10px;
   font-size: 11px;
@@ -78,33 +217,12 @@ h3 {
   font-size: 10px;
   font-weight: bold;
   height: 35px;
-  width: 50%;
+  width: 22%;
   margin-left: 5px;
 }
 
 .create-lobby-button:hover {
   background-color: #792ea1;
-}
-
-.lobby-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: transparent;
-  border-radius: 5px;
-  margin-top: 20px;
-  color: white;
-  margin-left: 160px;
-}
-
-.lobby-table th, .lobby-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ccc;
-}
-
-.lobby-table th {
-  background-color: transparent;
-  color: white;
 }
 
 .no-lobbies {
@@ -122,7 +240,7 @@ h3 {
   cursor: pointer;
   font-size: 12px;
   height: 30px;
-  width: 60%;
+  width: 20%;
   margin-left: 5px;
   transition: transform 0.4s ease;
 }

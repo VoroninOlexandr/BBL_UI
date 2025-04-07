@@ -42,7 +42,7 @@ const positionsByPlayerCount = {
 
 const GameTable = () => {
   const { players, balances, setPlayers, setBalances } = useGame();
-  const webSocketService = new WebSocketService();
+  const [webSocketService] = useState(new WebSocketService());
 
   const changePot = (data) => {
     if (data.actionType === 3) {

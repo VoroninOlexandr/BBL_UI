@@ -12,7 +12,7 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
   const [isPlayerTurn, setIsPlayerTurn] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
-  const webSocketService = new WebSocketService();
+  const [webSocketService] = useState(new WebSocketService());
 
   const { players } = useGame();
 

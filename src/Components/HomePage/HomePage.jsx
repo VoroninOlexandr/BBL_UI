@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 import unlockIcon from "../Assets/unlock.png";
 import lockIcon from "../Assets/lock.png";
 import "./HomePage.css";
+import img1 from "../Assets/1.png";
+import img2 from "../Assets/2.png";
+import img3 from "../Assets/3.png";
+import img4 from "../Assets/4.png";
+import img5 from "../Assets/5.png";
+import img6 from "../Assets/6.png";
 
 const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
@@ -11,7 +17,17 @@ const HomePage = () => {
   const [maxPlayers, setMaxPlayers] = useState(2);
   const [error, setError] = useState(null);
   const [columnWidths, setColumnWidths] = useState({ name: 200, players: 150, state: 100 });
+  const [hoveredLobby, setHoveredLobby] = useState(null);
   const navigate = useNavigate();
+
+  const playerImages = {
+    1: img1,
+    2: img2,
+    3: img3,
+    4: img4,
+    5: img5,
+    6: img6,
+  };
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -125,16 +141,18 @@ const HomePage = () => {
                     onClick={() => {
                       if (!isFull) handleJoinTable(lobby.id);
                     }}
+                    onMouseEnter={() => setHoveredLobby(lobby)}
+                    onMouseLeave={() => setHoveredLobby(null)}
                   >
                     <span className="lobby-column" style={{ width: columnWidths.name }}>{lobby.lobbyName}</span>
                     <span className="lobby-column" style={{ width: columnWidths.players }}>
                       {lobby.playerCount}/{lobby.maxPlayers}
                     </span>
                     <span className="lobby-column" style={{ width: columnWidths.state }}>
-                      <img 
-                        src={isFull ? lockIcon : unlockIcon} 
-                        alt={isFull ? "Locked" : "Unlocked"} 
-                        className="lock-icon" 
+                      <img
+                        src={isFull ? lockIcon : unlockIcon}
+                        alt={isFull ? "Locked" : "Unlocked"}
+                        className="lock-icon"
                       />
                     </span>
                   </div>
@@ -144,6 +162,17 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      {/* Незалежний контейнер з фото */}
+      <div className="hover-preview-container">
+  {hoveredLobby && playerImages[hoveredLobby.playerCount] && (
+    <img
+      src={playerImages[hoveredLobby.playerCount]}
+      alt={`Preview for ${hoveredLobby.playerCount} players`}
+      className="hover-preview-image"
+    />
+  )}
+</div>
     </div>
   );
 };

@@ -4,6 +4,29 @@
   box-sizing: border-box;
 }
 
+
+.hover-preview-container {
+  position: absolute;
+  top: 37%; /* змінюй на своє бажання */
+  right: 130px; /* змінюй на своє бажання */
+  width: 300px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.hover-preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  z-index: 999;
+
+}
+
 .home-page-container {
   background-image: url('/src/Components/Assets/lobbylist.png');
   background-position: center;

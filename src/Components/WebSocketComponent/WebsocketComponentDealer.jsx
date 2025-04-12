@@ -26,16 +26,16 @@ const Rank = {
 };
 
 const BestHand = {
-  0 : "HIGH CARD",
-  1 : "PAIR",
-  2 : "TWO PAIRS",
-  3 : "THREE OF A KIND",
-  4 : "STRAIGHT",
-  5 : "FLUSH",
-  6 : "FULL HOUSE",
-  7 : "FOUR OF A KIND",
-  8 : "STRAIGHT FLUSH",
-  9 : "ROYAL FLUSH"
+  0: "HIGH CARD",
+  1: "PAIR",
+  2: "TWO PAIRS",
+  3: "THREE OF A KIND",
+  4: "STRAIGHT",
+  5: "FLUSH",
+  6: "FULL HOUSE",
+  7: "FOUR OF A KIND",
+  8: "STRAIGHT FLUSH",
+  9: "ROYAL FLUSH",
 };
 
 const WebSocketComponentDealer = ({ players }) => {
@@ -43,6 +43,7 @@ const WebSocketComponentDealer = ({ players }) => {
   const [privateCards, setPrivateCards] = useState([]);
   const [pot, setPot] = useState(0);
   const [bestHand, setBestHand] = useState("");
+  const [winner, setWinner] = useState(null);
   const [webSocketService] = useState(new WebSocketService());
 
   const handleCardData = (data) => {
@@ -57,16 +58,14 @@ const WebSocketComponentDealer = ({ players }) => {
         suit: data.ordinalCard.suit,
         rank: data.ordinalCard.rank,
       };
-      
       setPrivateCards((prev) => [...prev, newCard]);
     } else if (data.actionType === 2) {
-        setBestHand(data.PlayerBestHand);
-
+      setBestHand(data.PlayerBestHand);
     } else if (data.actionType === 3) {
       const { playerId, amount, newPot } = data;
       console.log("Pot changed");
       setPot(newPot);
-    }
+    } 
   };
 
   useEffect(() => {
@@ -81,28 +80,30 @@ const WebSocketComponentDealer = ({ players }) => {
     <div className="game-table-container">
       <div className="pot-container">Pot: ${pot}</div>
 
-      <div className="pot-container">Pot: ${pot}</div>
-
-<button
-  onClick={() =>
-    handleCardData({
-      actionType: 2,
-      PlayerBestHand: "TWO PAIRS"
-    })
-  }
->
-  Test Best Hand
-</button>
+      <button
+        className="test-best-hand-button"
+        onClick={() =>
+          handleCardData({
+            actionType: 2,
+            PlayerBestHand: "TWO PAIRS",
+          })
+        }
+      >
+        Test Best Hand
+      </button>
 
       {bestHand && (
-        <div className="best-hand-announcement">
-        {bestHand}
-        </div>
+        <div className="best-hand-announcement">{bestHand}</div>
       )}
+
 
       <div className="cards-container">
         {communityCards.map((card, index) => (
-          <div key={index} className="card public-card">
+          <div
+            key={index}
+            className="card public-card"
+            style={{ animationDelay: `${index * 0.2}s` }}
+          >
             <img
               src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
@@ -114,7 +115,16 @@ const WebSocketComponentDealer = ({ players }) => {
 
       <div className="private-cards-container">
         {privateCards.map((card, index) => (
-          <div key={index} className="card-private-card">
+          <div
+            key={index}
+            className={`card-private-card ${
+              index === 0
+                ? "private-card-first"
+                : index === 1
+                ? "private-card-second"
+                : ""
+            }`}
+          >
             <img
               src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}

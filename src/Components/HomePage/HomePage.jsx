@@ -10,6 +10,8 @@ import img3 from "../Assets/3.png";
 import img4 from "../Assets/4.png";
 import img5 from "../Assets/5.png";
 import img6 from "../Assets/6.png";
+import zeroImage from "../Assets/0.png";
+import noLobbiesImage from "../Assets/nolobbies.png";
 
 const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
@@ -18,9 +20,11 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [columnWidths, setColumnWidths] = useState({ name: 200, players: 150, state: 100 });
   const [hoveredLobby, setHoveredLobby] = useState(null);
+const [previewImageVisible, setPreviewImageVisible] = useState(false);
   const navigate = useNavigate();
 
   const playerImages = {
+    0: zeroImage,
     1: img1,
     2: img2,
     3: img3,
@@ -121,7 +125,7 @@ const HomePage = () => {
           <button type="submit" className="create-lobby-button">Create</button>
         </form>
 
-        <div className="lobby-list-container">
+        <div className={`lobby-list-container ${lobbies.length === 0 ? "no-lobbies-mode" : ""}`}>
           <div className="lobby-headers">
             <span className="lobby-column" style={{ width: columnWidths.name }}>Name</span>
             <span className="lobby-column" style={{ width: columnWidths.players }}>Number of Players</span>
@@ -129,47 +133,56 @@ const HomePage = () => {
           </div>
 
           <div className="lobby-list">
-            {lobbies.length === 0 ? (
-              <div className="no-lobbies">No lobbies found</div>
-            ) : (
-              lobbies.map((lobby, index) => {
-                const isFull = lobby.playerCount >= lobby.maxPlayers;
-                return (
-                  <div
-                    key={lobby.id}
-                    className={`lobby-card clickable-lobby ${index % 2 === 0 ? 'even' : 'odd'} ${isFull ? 'disabled' : ''}`}
-                    onClick={() => {
-                      if (!isFull) handleJoinTable(lobby.id);
-                    }}
-                    onMouseEnter={() => setHoveredLobby(lobby)}
-                    onMouseLeave={() => setHoveredLobby(null)}
-                  >
-                    <span className="lobby-column" style={{ width: columnWidths.name }}>{lobby.lobbyName}</span>
-                    <span className="lobby-column" style={{ width: columnWidths.players }}>
-                      {lobby.playerCount}/{lobby.maxPlayers}
-                    </span>
-                    <span className="lobby-column" style={{ width: columnWidths.state }}>
-                      <img
-                        src={isFull ? lockIcon : unlockIcon}
-                        alt={isFull ? "Locked" : "Unlocked"}
-                        className="lock-icon"
-                      />
-                    </span>
-                  </div>
-                );
-              })
-            )}
-          </div>
+          {lobbies.length === 0 ? (
+  <div className="no-lobbies">
+    <img src={noLobbiesImage} alt="No lobbies available" className="no-lobbies-image" />
+  </div>
+) : (
+
+    lobbies.map((lobby, index) => {
+      const isFull = lobby.playerCount >= lobby.playerRequirement;
+      return (
+        <div
+          key={lobby.id}
+          className={`lobby-card clickable-lobby ${index % 2 === 0 ? 'even' : 'odd'} ${isFull ? 'disabled' : ''}`}
+          onClick={() => {
+            if (!isFull) handleJoinTable(lobby.id);
+          }}
+          onMouseEnter={() => {
+            setPreviewImageVisible(false); // сховаємо
+            setTimeout(() => {
+              setHoveredLobby(lobby); // змінимо фото
+              setPreviewImageVisible(true); // знову покажемо
+            }, 50);
+          }}
+        >
+          <span className="lobby-column" style={{ width: columnWidths.name }}>{lobby.lobbyName}</span>
+          <span className="lobby-column" style={{ width: columnWidths.players }}>
+            {lobby.playerCount}/{lobby.playerRequirement}
+          </span>
+          <span className="lobby-column" style={{ width: columnWidths.state }}>
+            <img
+              src={isFull ? lockIcon : unlockIcon}
+              alt={isFull ? "Locked" : "Unlocked"}
+              className="lock-icon"
+            />
+          </span>
+        </div>
+      );
+    })
+  )}
+</div>
+
         </div>
       </div>
 
       {/* Незалежний контейнер з фото */}
       <div className="hover-preview-container">
-  {hoveredLobby && playerImages[hoveredLobby.playerCount] && (
+  {hoveredLobby && (
     <img
       src={playerImages[hoveredLobby.playerCount]}
       alt={`Preview for ${hoveredLobby.playerCount} players`}
-      className="hover-preview-image"
+      className={`hover-preview-image ${previewImageVisible ? "visible" : ""}`}
     />
   )}
 </div>

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import unlockIcon from "../Assets/unlock.png";
-import lockIcon from "../Assets/lock.png";
+import unlockIcon from "/public/Assets/unlock.png";
+import lockIcon from "/public/Assets/lock.png";
 import "./HomePage.css";
-import img1 from "../Assets/1.png";
-import img2 from "../Assets/2.png";
-import img3 from "../Assets/3.png";
-import img4 from "../Assets/4.png";
-import img5 from "../Assets/5.png";
-import img6 from "../Assets/6.png";
-import zeroImage from "../Assets/0.png";
-import noLobbiesImage from "../Assets/nolobbies.png";
+import img1 from "/public/Assets/1.png";
+import img2 from "/public/Assets/2.png";
+import img3 from "/public/Assets/3.png";
+import img4 from "/public/Assets/4.png";
+import img5 from "/public/Assets/5.png";
+import img6 from "/public/Assets/6.png";
+import zeroImage from "/public/Assets/0.png";
+import noLobbiesImage from "/public/Assets/nolobbies.png";
 
 const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
@@ -96,6 +96,14 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
   return (
     <div className="home-page-container">
       <div className="home-page">
+
+        {/* Додано top-bar з логотипом */}
+      <div className="top-bar">
+        <div className="left-section">
+          <img src="/public/Assets/logo.png" alt="Logo" className="logo" />
+          <span className="brand-name">BBL Poker</span>
+        </div>
+      </div>
         <h4>Lobby List</h4>
         <h3>Choose available lobby from the list or create one</h3>
         {error && <div className="error-message">{error}</div>}
@@ -137,6 +145,7 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
   <div className="no-lobbies">
     <img src={noLobbiesImage} alt="No lobbies available" className="no-lobbies-image" />
   </div>
+  
 ) : (
 
     lobbies.map((lobby, index) => {
@@ -187,6 +196,8 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
   )}
 </div>
     </div>
+
+    
   );
 };
 

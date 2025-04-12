@@ -105,7 +105,7 @@ const WebSocketComponentDealer = ({ players }) => {
             style={{ animationDelay: `${index * 0.2}s` }}
           >
             <img
-              src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
+              src={`/public/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
               className="card-image"
             />
@@ -126,7 +126,7 @@ const WebSocketComponentDealer = ({ players }) => {
             }`}
           >
             <img
-              src={`/src/Components/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
+              src={`/public/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
               className="card-image"
             />

@@ -3,9 +3,9 @@ import "./BetControls.css";
 import WebSocketService from "../../WebSocketService";
 import { useGame } from "./GameContext";
 
-import foldSoundFile from "/src/Components/Assets/sounds/fold.mp3";
-import callSoundFile from "/src/Components/Assets/sounds/call.mp3";
-import raiseSoundFile from "/src/Components/Assets/sounds/raise.mp3";
+import foldSoundFile from "/public/Assets/sounds/fold.mp3";
+import callSoundFile from "/public/Assets/sounds/call.mp3";
+import raiseSoundFile from "/public/Assets/sounds/raise.mp3";
 
 const PlayerActions = () => {
   const [raiseAmount, setRaiseAmount] = useState(0);

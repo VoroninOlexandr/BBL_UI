@@ -34,7 +34,7 @@ const LoginForm = () => {
     return (
         <div className="wrapper">
             <form onSubmit={handleSubmit} className="login-form">
-                <h1 className="main-heading">Hello, Welcome to BBL Poker!</h1>
+                <h1 className="main-heading">Welcome to BBL Poker!</h1>
                 <h2 className="sub-heading">Please enter your nickname</h2>
 
                 <div className="input-container">

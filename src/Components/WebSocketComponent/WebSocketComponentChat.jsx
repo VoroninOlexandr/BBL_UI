@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 
@@ -8,6 +8,7 @@ const WebSocketComponentChat = () => {
   const [nickname, setNickname] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const sendSound = new Audio("/src/Components/Assets/sounds/chat.mp3");
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const storedNickname = sessionStorage.getItem("username");
@@ -37,6 +38,11 @@ const WebSocketComponentChat = () => {
     };
   }, []);
 
+  // Scroll to bottom when messages update
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const handleMessageChange = (e) => setMessage(e.target.value);
 
   const handleKeyDown = (event) => {
@@ -63,10 +69,11 @@ const WebSocketComponentChat = () => {
       <div className="messages-box">
         <ul>
           {messages.map((msg, index) => (
-            <li key={index}>
+            <li key={index} className="chat-message animated-message">
               <strong>{msg.from}:</strong> {msg.content}
             </li>
           ))}
+          <div ref={messagesEndRef} />
         </ul>
       </div>
       <div className="chat-input">

@@ -73,9 +73,9 @@
 
 .raise-controls {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   padding: 0px;
-  transform: translate(80%,-150%);
+  transform: translate(80%,-60%);
   
   background-color: #eeeeee00;
   border-radius: 5px;

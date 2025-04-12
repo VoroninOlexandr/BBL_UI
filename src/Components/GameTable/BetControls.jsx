@@ -7,8 +7,8 @@ import foldSoundFile from "/src/Components/Assets/sounds/fold.mp3";
 import callSoundFile from "/src/Components/Assets/sounds/call.mp3";
 import raiseSoundFile from "/src/Components/Assets/sounds/raise.mp3";
 
-const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
-  const [raiseAmount, setRaiseAmount] = useState(minRaise);
+const PlayerActions = () => {
+  const [raiseAmount, setRaiseAmount] = useState(0);
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
   const [isPlayerTurn, setIsPlayerTurn] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
@@ -101,19 +101,18 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
   return (
     <div className="player-actions">
       {showButtons && (
-        <>
-          <button onClick={handleFold} disabled={!isPlayerTurn}>
-            Fold
-          </button>
-          <button onClick={handleCall} disabled={!isPlayerTurn}>
-            Call
-          </button>
-          <button onClick={handleRaiseClick} disabled={!isPlayerTurn}>
-            Raise
-          </button>
-        </>
-      )}
-
+  <div className="action-buttons-animated">
+    <button onClick={handleFold} disabled={!isPlayerTurn}>
+      Fold
+    </button>
+    <button onClick={handleCall} disabled={!isPlayerTurn}>
+      Call
+    </button>
+    <button onClick={handleRaiseClick} disabled={!isPlayerTurn}>
+      Raise
+    </button>
+  </div>
+)}
       {showRaiseSlider && (
         <div className="raise-controls">
           <button className="close-button" onClick={handleCloseSlider}>
@@ -121,8 +120,8 @@ const PlayerActions = ({ onFold, onCall, onRaise, minRaise, maxRaise }) => {
           </button>
           <input
             type="range"
-            min={minRaise}
-            max={maxRaise}
+            min={amountToCall}
+            max={100}
             value={raiseAmount}
             onChange={(e) => setRaiseAmount(Number(e.target.value))}
           />

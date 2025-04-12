@@ -7,11 +7,11 @@
 
 .hover-preview-container {
   position: absolute;
-  top: 37%; /* змінюй на своє бажання */
-  right: 130px; /* змінюй на своє бажання */
-  width: 300px;
-  height: 200px;
-  border: 2px dashed #ccc;
+  top: 14%;
+  right: 140px;
+  width: 45%;
+  height: 80% ;
+  border: 2px dashed transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,16 +21,26 @@
 
 .hover-preview-image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 85%;
   object-fit: contain;
   z-index: 999;
+  opacity: 1;
+  transform: scale(0.5);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  display: block;
+  pointer-events: none;
+}
 
+.hover-preview-image.visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .home-page-container {
   background-image: url('/src/Components/Assets/lobbylist.png');
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -44,6 +54,10 @@
   padding-left: 20px;
   padding-right: 20px;
   min-width: 400x
+}
+
+.no-lobbies-mode {
+  margin-top: 0px;
 }
 
 .player-count-select {
@@ -110,7 +124,7 @@
   transform: translateX(25%);
   flex-direction: column;
   align-items: center;
-  width: 120%;
+  width: 113%;
 }
 
 /* Кастомний скролбар для lobby-list */
@@ -151,14 +165,14 @@
   padding: 10px;
   width: 100%;
   justify-content: center;
-}
+  }
 
 .lobby-card {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  width: 2000px;
+  width: 550px;
   height: 60px;
   background: #2A2837;
   border-radius: 10px;
@@ -249,9 +263,19 @@ h3 {
 }
 
 .no-lobbies {
-  text-align: center;
-  padding: 10px;
-  color: #888;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  right: 30px
+}
+
+.no-lobbies-image {
+  max-width: 520px;
+  width: 100%;
+  height: auto;
+  opacity: 0.8;
 }
 
 .join-lobby-button {

@@ -37,7 +37,7 @@
 }
 
 .home-page-container {
-  background-image: url('/public/Assets/lobbylist.png');
+  background-image: url('/images/lobbylist.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

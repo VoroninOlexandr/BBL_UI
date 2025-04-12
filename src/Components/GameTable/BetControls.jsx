@@ -3,10 +3,6 @@ import "./BetControls.css";
 import WebSocketService from "../../WebSocketService";
 import { useGame } from "./GameContext";
 
-import foldSoundFile from "/public/Assets/sounds/fold.mp3";
-import callSoundFile from "/public/Assets/sounds/call.mp3";
-import raiseSoundFile from "/public/Assets/sounds/raise.mp3";
-
 const PlayerActions = () => {
   const [raiseAmount, setRaiseAmount] = useState(0);
   const [showRaiseSlider, setShowRaiseSlider] = useState(false);
@@ -14,12 +10,13 @@ const PlayerActions = () => {
   const [showButtons, setShowButtons] = useState(false);
   const [webSocketService] = useState(new WebSocketService());
   const [amountToCall, setAmountToCall] = useState(0);
-
   const { players } = useGame();
+  const currentPlayer = players.find((p) => p.id === sessionStorage.getItem("playerId"));
+  const maxRaise = currentPlayer ? currentPlayer.balance : 0;
 
-  const foldSound = new Audio(foldSoundFile);
-  const callSound = new Audio(callSoundFile);
-  const raiseSound = new Audio(raiseSoundFile);
+  const foldSound = new Audio("/images/sounds/fold.mp3");
+  const callSound = new Audio("/images/sounds/call.mp3");
+  const raiseSound = new Audio("/images/sounds/raise.mp3");
 
   const handlePlayerTurn = (data) => {
     console.log("Player turn data:", data.playerId, data.actionType);
@@ -98,6 +95,10 @@ const PlayerActions = () => {
     }
   }, []);
 
+  useEffect(() => {
+      setRaiseAmount(amountToCall);
+    }, [amountToCall]);
+
   return (
     <div className="player-actions">
       {showButtons && (
@@ -121,7 +122,7 @@ const PlayerActions = () => {
           <input
             type="range"
             min={amountToCall}
-            max={100}
+            max={maxRaise}
             value={raiseAmount}
             onChange={(e) => setRaiseAmount(Number(e.target.value))}
           />

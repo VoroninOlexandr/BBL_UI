@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import unlockIcon from "/public/Assets/unlock.png";
-import lockIcon from "/public/Assets/lock.png";
+import unlockIcon from "../Assets/unlock.png";
+import lockIcon from "../Assets/lock.png";
 import "./HomePage.css";
-import img1 from "/public/Assets/1.png";
-import img2 from "/public/Assets/2.png";
-import img3 from "/public/Assets/3.png";
-import img4 from "/public/Assets/4.png";
-import img5 from "/public/Assets/5.png";
-import img6 from "/public/Assets/6.png";
-import zeroImage from "/public/Assets/0.png";
-import noLobbiesImage from "/public/Assets/nolobbies.png";
+import img1 from "../Assets/1.png";
+import img2 from "../Assets/2.png";
+import img3 from "../Assets/3.png";
+import img4 from "../Assets/4.png";
+import img5 from "../Assets/5.png";
+import img6 from "../Assets/6.png";
+import zeroImage from "../Assets/0.png";
+import noLobbiesImage from "../Assets/nolobbies.png";
 
 const HomePage = () => {
   const [lobbies, setLobbies] = useState([]);
@@ -100,7 +100,7 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
         {/* Додано top-bar з логотипом */}
       <div className="top-bar">
         <div className="left-section">
-          <img src="/public/Assets/logo.png" alt="Logo" className="logo" />
+          <img src="/images/logo.png" alt="Logo" className="logo" />
           <span className="brand-name">BBL Poker</span>
         </div>
       </div>

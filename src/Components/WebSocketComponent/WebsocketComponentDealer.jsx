@@ -27,7 +27,7 @@ const Rank = {
 
 const BestHand = {
   0: "HIGH CARD",
-  1: "PAIR",
+  1: "ONE PAIR",
   2: "TWO PAIRS",
   3: "THREE OF A KIND",
   4: "STRAIGHT",
@@ -60,7 +60,8 @@ const WebSocketComponentDealer = ({ players }) => {
       };
       setPrivateCards((prev) => [...prev, newCard]);
     } else if (data.actionType === 2) {
-      setBestHand(data.PlayerBestHand);
+      console.log(data);
+      setBestHand(BestHand[data.ordinal]);
     } else if (data.actionType === 3) {
       const { playerId, amount, newPot } = data;
       console.log("Pot changed");
@@ -80,18 +81,6 @@ const WebSocketComponentDealer = ({ players }) => {
     <div className="game-table-container">
       <div className="pot-container">Pot: ${pot}</div>
 
-      <button
-        className="test-best-hand-button"
-        onClick={() =>
-          handleCardData({
-            actionType: 2,
-            PlayerBestHand: "TWO PAIRS",
-          })
-        }
-      >
-        Test Best Hand
-      </button>
-
       {bestHand && (
         <div className="best-hand-announcement">{bestHand}</div>
       )}
@@ -105,7 +94,7 @@ const WebSocketComponentDealer = ({ players }) => {
             style={{ animationDelay: `${index * 0.2}s` }}
           >
             <img
-              src={`/public/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
+              src={`/images/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
               className="card-image"
             />
@@ -126,7 +115,7 @@ const WebSocketComponentDealer = ({ players }) => {
             }`}
           >
             <img
-              src={`/public/Assets/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
+              src={`/images/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
               className="card-image"
             />

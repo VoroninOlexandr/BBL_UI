@@ -124,7 +124,7 @@ const GameTable = () => {
         let sortedPlayers = data.players.map((p) => ({
           id: p.id,
           name: p.nickname,
-          avatar: "/src/Components/Assets/player-icon.png",
+          avatar: "/public/Assets/player-icon.png",
           balance: 1000,
         }));
 
@@ -164,11 +164,11 @@ const GameTable = () => {
 
   return (
     <div className="game-table-container">
-      <audio ref={audioRef} src="/src/Components/Assets/chat.mp3" autoPlay loop />
+      <audio ref={audioRef} src="/public/Assets/chat.mp3" autoPlay loop />
 
       <div className="top-bar">
         <div className="left-section">
-          <img src="/src/Components/Assets/logo.png" alt="Logo" className="logo" />
+          <img src="/public/Assets/logo.png" alt="Logo" className="logo" />
           <span className="brand-name">BBL Poker</span>
         </div>
         <div className="center-section">
@@ -177,7 +177,7 @@ const GameTable = () => {
         </div>
         <div className="right-section">
           <img
-            src={muted ? "/src/Components/Assets/soundoff.png" : "/src/Components/Assets/soundon.png"}
+            src={muted ? "/public/Assets/soundoff.png" : "/public/Assets/soundon.png"}
             alt="Toggle Sound"
             className="sound-icon"
             onClick={toggleMute}
@@ -188,19 +188,19 @@ const GameTable = () => {
       <div className="panel-container">
         {activePanel === "about" && (
           <div className="info-panel">
-            <img src="/src/Components/Assets/aboutus.png" alt="About Us" className="panel-image about-img" />
+            <img src="/public/Assets/aboutus.png" alt="About Us" className="panel-image about-img" />
           </div>
         )}
         {activePanel === "help" && (
           <div className="info-panel">
-            <img src="/src/Components/Assets/help.png" alt="Help" className="panel-image help-img" />
+            <img src="/public/Assets/help.png" alt="Help" className="panel-image help-img" />
           </div>
-        )}
+        )}  
       </div>
 
       <div className="game-table">
-        <img src="/src/Components/Assets/tableback.png" alt="Background" className="background" />
-        <img src="/src/Components/Assets/tablefront.png" alt="Poker Table" className="table" />
+        <img src="/public/Assets/tableback.png" alt="Background" className="background" />
+        <img src="/public/Assets/tablefront.png" alt="Poker Table" className="table" />
 
         <WebSocketComponentDealer players={players} updateBalances={updateBalances} />
 
@@ -213,7 +213,7 @@ const GameTable = () => {
             <img src={player.avatar} alt={player.name} className="avatar" />
             <span className="player-name">{player.name}</span>
             <span className="player-balance">
-              <img src="/src/Components/Assets/chip.png" alt="Chip" className="chip-icon" />
+              <img src="/public/Assets/chip.png" alt="Chip" className="chip-icon" />
               {player.balance}
             </span>
           </div>
@@ -222,7 +222,7 @@ const GameTable = () => {
 
       {winnerInfo && (
         <div className="winner-overlay">
-          <img src="/src/Components/Assets/winner.png" alt="Winner" className="winner-image" />
+          <img src="/public/Assets/winner.png" alt="Winner" className="winner-image" />
           <div className="winner-text">
             <h1>WINNER: {winnerInfo.name}</h1>
             <h2>{winnerInfo.hand}</h2>

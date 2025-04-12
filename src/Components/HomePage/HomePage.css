@@ -37,7 +37,7 @@
 }
 
 .home-page-container {
-  background-image: url('/src/Components/Assets/lobbylist.png');
+  background-image: url('/public/Assets/lobbylist.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -61,26 +61,40 @@
 }
 
 .player-count-select {
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 20px;
   border: 1px solid #d2d2d222;
   outline: none;
   background-color: transparent;
-  margin-left: 10px;
+  margin-left: 0px;
   cursor: pointer;
   transition: border-color 0.3s ease;
 }
 
 .player-count-select:hover {
   border-color: #5708ab63;
+  /* border: 10px; */
 }
 
 
 
 .player-count-lobby-select:focus {
   border-color: #470fc0;
+  border: 5px;
   box-shadow: 0 0 3px rgba(95, 15, 193, 0.5);
+}
+
+.player-count-select option {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0F0E1B;
+  color: #d4d1ff82;
+  border-color:#0056b3;
+  font-size: 16px;
+}
+
+.player-count-select option:hover {
+  background-color: #555; /* <-- на жаль, не працює як треба */
 }
 
 
@@ -160,7 +174,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  max-height: 400px;
+  max-height: 380px;
   overflow-y: auto;
   padding: 10px;
   width: 100%;
@@ -255,11 +269,13 @@ h3 {
   font-weight: bold;
   height: 35px;
   width: 22%;
-  margin-left: 5px;
+  margin-left: 10px;
+  transition: 0.4s ease;
 }
 
 .create-lobby-button:hover {
-  background-color: #792ea1;
+  background-color: #0056b3;
+  transform: translateY(-4px);
 }
 
 .no-lobbies {

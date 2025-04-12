@@ -7,7 +7,7 @@ const WebSocketComponentChat = () => {
   const [message, setMessage] = useState("");
   const [nickname, setNickname] = useState("");
   const [stompClient, setStompClient] = useState(null);
-  const sendSound = new Audio("/src/Components/Assets/sounds/chat.mp3");
+  const sendSound = new Audio("/public/Assets/sounds/chat.mp3");
   const messagesEndRef = useRef(null);
 
   useEffect(() => {

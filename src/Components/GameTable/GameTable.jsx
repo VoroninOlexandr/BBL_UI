@@ -7,36 +7,36 @@ import BetControls from "./BetControls";
 import WebSocketService from "../../WebSocketService";
 
 const positionsByPlayerCount = {
-  1: [{ bottom: "9%", left: "50%", transform: "translateX(-50%)" }],
+  1: [{ left: "50%", top: "50%", transform: "translate(-50%, 190px)"  }],
   2: [
-    { bottom: "9%", left: "50%", transform: "translateX(-50%)" },
-    { top: "5%", left: "50%", transform: "translateX(-50%)" },
+    { left: "50%", top: "50%", transform: "translate(-50%, 190px)"  },
+    { left: "50%", top: "50%", transform: "translate(-50%, -400px)"  },
   ],
   3: [
-    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
-    { top: "21%", left: "17%" },
-    { top: "21%", right: "17%" },
+    { left: "50%", top: "50%", transform: "translate(-50%, 190px)"  },
+    { left: "50%", top: "50%", transform: "translate(-565px, -260px)"  },
+    { left: "50%", top: "50%", transform: "translate(440px, -260px)"  },
   ],
   4: [
-    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
-    { top: "21%", left: "17%" },
-    { top: "5%", left: "50%", transform: "translateX(-60%)" },
-    { top: "21%", right: "17%" },
+    { left: "50%", top: "50%", transform: "translate(-50%, 190px)"  },
+    { left: "50%", top: "50%", transform: "translate(-565px, -260px)"  },
+    { left: "50%", top: "50%", transform: "translate(-50%, -400px)"  },
+    { left: "50%", top: "50%", transform: "translate(440px, -260px)"  },
   ],
   5: [
-    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
-    { bottom: "28%", left: "17%" },
-    { top: "21%", left: "17%" },
-    { top: "21%", right: "17%" },
-    { bottom: "28%", right: "17%" },
+    { left: "50%", top: "50%", transform: "translate(-50%, 190px)"  },
+    { left: "50%", top: "50%", transform: "translate(-565px, 30px)"  },
+    { left: "50%", top: "50%", transform: "translate(-565px, -260px)"  },
+    { left: "50%", top: "50%", transform: "translate(440px, -260px)"  },
+    { left: "50%", top: "50%", transform: "translate(440px, 35px)"  },
   ],
   6: [
-    { bottom: "9%", left: "50%", transform: "translateX(-60%)" },
-    { bottom: "28%", left: "17%" },
-    { top: "21%", left: "17%" },
-    { top: "5%", left: "50%", transform: "translateX(-60%)" },
-    { top: "21%", right: "17%" },
-    { bottom: "28%", right: "17%" },
+    { left: "50%", top: "50%", transform: "translate(-50%, 190px)"  },
+    { left: "50%", top: "50%", transform: "translate(-565px, 35px)"  },
+    { left: "50%", top: "50%", transform: "translate(-565px, -260px)"  },
+    { left: "50%", top: "50%", transform: "translate(-50%, -400px)"  },
+    { left: "50%", top: "50%", transform: "translate(440px, -260px)"  },
+    { left: "50%", top: "50%", transform: "translate(440px, 35px)"  },
   ],
 };
 
@@ -124,7 +124,7 @@ const GameTable = () => {
         let sortedPlayers = data.players.map((p) => ({
           id: p.id,
           name: p.nickname,
-          avatar: "/images/player-icon.png",
+          avatar: "/images/avatar_" + p.avatar + ".png",
           balance: 1000,
         }));
 

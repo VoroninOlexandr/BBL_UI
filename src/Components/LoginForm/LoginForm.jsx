@@ -28,6 +28,7 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         sessionStorage.setItem("username", username);
+        sessionStorage.setItem("avatar", Math.floor(Math.random() * 6));
         navigate('/home');
     };
 

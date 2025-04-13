@@ -66,7 +66,12 @@ const WebSocketComponentDealer = ({ players }) => {
       const { playerId, amount, newPot } = data;
       console.log("Pot changed");
       setPot(newPot);
-    } 
+    } else if (data.actionType === 8){
+      setCommunityCards([]);
+      setPrivateCards([]);
+      setPot(0);
+      setBestHand("");
+    }
   };
 
   useEffect(() => {

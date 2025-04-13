@@ -57,7 +57,7 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
   const handleAddLobby = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/games/create", {
+      await axios.post("localhost:8080/api/games/create", {
         lobbyName: newLobbyName,
         playerRequirement : maxPlayers
       });
@@ -77,7 +77,7 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
       return;
     }
     try {
-      const response = await axios.post(`http://localhost:8080/api/games/join/${lobbyId}`, {
+      const response = await axios.post(`/api/games/join/${lobbyId}`, {
         playerName: username,
         playerAvatar : avatar
       });

@@ -16,7 +16,7 @@ const WebSocketComponentChat = () => {
       setNickname(storedNickname);
     }
 
-    const socket = new SockJS("http://localhost:8080/chat");
+    const socket = new SockJS("https://bblpoker.win/chat");
     const client = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,

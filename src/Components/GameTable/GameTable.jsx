@@ -122,7 +122,7 @@ const GameTable = () => {
     const playerId = sessionStorage.getItem("playerId");
     const lobbyId = sessionStorage.getItem("lobbyId");
 
-    fetch(`http://localhost:8080/api/games/get/${lobbyId}`)
+    fetch(`/api/games/get/${lobbyId}`)
       .then((response) => response.json())
       .then((data) => {
         if (!data.players || !Array.isArray(data.players)) return;
@@ -169,7 +169,7 @@ const GameTable = () => {
   const handlePlayAgain = () => {
     const lobbyId = sessionStorage.getItem("lobbyId");
 
-    axios.post(`http://localhost:8080/api/games/restart/${lobbyId}`)
+    axios.post(`/api/games/restart/${lobbyId}`)
   .then(() => {
     setWinnerInfo(null);
     setShowEndGameButtons(false);
@@ -187,7 +187,7 @@ const GameTable = () => {
     const lobbyId = sessionStorage.getItem("lobbyId");
     const playerId = sessionStorage.getItem("playerId");
 
-    axios.post(`http://localhost:8080/api/games/leave/${lobbyId}/${playerId}`)
+    axios.post(`/api/games/leave/${lobbyId}/${playerId}`)
     .then(() => {
       navigate('/home');
     })

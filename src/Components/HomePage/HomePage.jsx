@@ -47,7 +47,7 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
 
   const fetchLobbies = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/games/get-all");
+      const response = await axios.get("/api/games/get-all");
       setLobbies(response.data);
     } catch {
       setError("Failed to fetch game lobbies");
@@ -57,7 +57,7 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
   const handleAddLobby = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("localhost:8080/api/games/create", {
+      await axios.post("/api/games/create", {
         lobbyName: newLobbyName,
         playerRequirement : maxPlayers
       });

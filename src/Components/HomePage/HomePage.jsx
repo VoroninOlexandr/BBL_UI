@@ -71,15 +71,17 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
 
   const handleJoinTable = async (lobbyId) => {
     const username = sessionStorage.getItem("username");
+    const avatar = sessionStorage.getItem("avatar");
     if (!username) {
       setError("You must be logged in to join a lobby.");
       return;
     }
     try {
       const response = await axios.post(`http://localhost:8080/api/games/join/${lobbyId}`, {
-        playerName: username
+        playerName: username,
+        playerAvatar : avatar
       });
-      const { playerId, lobbyId: gameId } = response.data;
+      const { playerId, lobbyId: gameId} = response.data;
       if (!playerId || !gameId) {
         setError("Failed to join the game. Invalid server response.");
         return;

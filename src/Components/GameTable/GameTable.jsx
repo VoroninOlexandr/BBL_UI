@@ -58,6 +58,7 @@ const GameTable = () => {
   const [webSocketService] = useState(new WebSocketService());
   const playersRef = useRef(players);
   const [winnerInfo, setWinnerInfo] = useState(null);
+  const [showEndGameButtons, setShowEndGameButtons] = useState(false);
 
   const [activePanel, setActivePanel] = useState(null);
   const togglePanel = (panel) => {
@@ -96,6 +97,7 @@ const GameTable = () => {
           name: player.name,
           hand: BestHand[winner.combination],
         });
+        setShowEndGameButtons(true);
       }
     }
   };
@@ -160,50 +162,31 @@ const GameTable = () => {
     setBalances(newBalances);
   };
 
+  const handlePlayAgain = () => {
+    
+    setWinnerInfo(null);
+    setShowEndGameButtons(false);
+    fetchLobby(); 
+  };
+
+  const handleLeaveTable = () => {
+    window.location.href = "/home";
+  };
+
   const positions = positionsByPlayerCount[players.length] || [];
 
   return (
     <div className="game-table-container">
       <audio ref={audioRef} src="/images/chat.mp3" autoPlay loop />
 
-      <div className="top-bar">
-        <div className="left-section">
-          <img src="/images/logo.png" alt="Logo" className="logo" />
-          <span className="brand-name">BBL Poker</span>
-        </div>
-        <div className="center-section">
-          <button onClick={() => togglePanel("about")} className="top-button">About Us</button>
-          <button onClick={() => togglePanel("help")} className="top-button">Help</button>
-        </div>
-        <div className="right-section">
-          <img
-            src={muted ? "/images/soundoff.png" : "/images/soundon.png"}
-            alt="Toggle Sound"
-            className="sound-icon"
-            onClick={toggleMute}
-          />
-        </div>
-      </div>
+      <div className="top-bar">{/* ... */}</div>
 
-      <div className="panel-container">
-        {activePanel === "about" && (
-          <div className="info-panel">
-            <img src="/images/aboutus.png" alt="About Us" className="panel-image about-img" />
-          </div>
-        )}
-        {activePanel === "help" && (
-          <div className="info-panel">
-            <img src="/images/help.png" alt="Help" className="panel-image help-img" />
-          </div>
-        )}  
-      </div>
+      <div className="panel-container">{/* ... */}</div>
 
       <div className="game-table">
         <img src="/images/tableback.png" alt="Background" className="background" />
         <img src="/images/tablefront.png" alt="Poker Table" className="table" />
-
         <WebSocketComponentDealer players={players} updateBalances={updateBalances} />
-
         {players.map((player, index) => (
           <div
             key={player.id}
@@ -227,6 +210,17 @@ const GameTable = () => {
             <h1>WINNER: {winnerInfo.name}</h1>
             <h2>{winnerInfo.hand}</h2>
           </div>
+
+          {showEndGameButtons && (
+            <div className="end-game-buttons">
+              <button className="play-again-button" onClick={handlePlayAgain}>
+                PLAY AGAIN
+              </button>
+              <button className="leave-table-button" onClick={handleLeaveTable}>
+                LEAVE TABLE
+              </button>
+            </div>
+          )}
         </div>
       )}
 

@@ -658,3 +658,40 @@
     transform: translate(-320px, -50%) scale(1);
   }
 }
+
+.end-game-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 120px;
+  transform: translateX(30px);
+  letter-spacing: 200px;
+}
+
+.play-again-button,
+.leave-table-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.play-again-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.leave-table-button {
+  background-color: #C72A2D;
+  color: white;
+}
+
+.play-again-button:hover,
+.leave-table-button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+

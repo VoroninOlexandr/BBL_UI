@@ -4,7 +4,7 @@ import axios from 'axios';
 import "./GameTable.css";
 import { useGame } from "./GameContext";
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
-import WebSocketComponentDealer from "../WebSocketComponent/WebSocketComponentDealer";
+import WebSocketComponentDealer from "../WebSocketComponent/WebsocketComponentDealer";
 import BetControls from "./BetControls";
 import WebSocketService from "../../WebSocketService";
 

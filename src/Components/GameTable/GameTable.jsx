@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "./GameTable.css";
 import { useGame } from "./GameContext";
 import WebSocketComponentChat from "../WebSocketComponent/WebSocketComponentChat";
@@ -64,6 +66,8 @@ const GameTable = () => {
   const togglePanel = (panel) => {
     setActivePanel((prev) => (prev === panel ? null : panel));
   };
+
+  const navigate = useNavigate();
 
   const [muted, setMuted] = useState(false);
   const audioRef = useRef(null);
@@ -163,14 +167,33 @@ const GameTable = () => {
   };
 
   const handlePlayAgain = () => {
+    const lobbyId = sessionStorage.getItem("lobbyId");
+
+    axios.post(`http://localhost:8080/api/games/restart/${lobbyId}`)
+  .then(() => {
+    setWinnerInfo(null);
+    setShowEndGameButtons(false);
+    fetchLobby();
+  }).catch((error) => {
+    console.error('Error restarting game:', error);
+  });
     
     setWinnerInfo(null);
     setShowEndGameButtons(false);
-    fetchLobby(); 
+    fetchLobby();
   };
 
   const handleLeaveTable = () => {
-    window.location.href = "/home";
+    const lobbyId = sessionStorage.getItem("lobbyId");
+    const playerId = sessionStorage.getItem("playerId");
+
+    axios.post(`http://localhost:8080/api/games/leave/${lobbyId}/${playerId}`)
+    .then(() => {
+      navigate('/home');
+    })
+    .catch((error) => {
+      console.error('Error leaving table:', error);
+    });
   };
 
   const positions = positionsByPlayerCount[players.length] || [];

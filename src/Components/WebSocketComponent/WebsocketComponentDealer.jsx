@@ -72,6 +72,7 @@ const WebSocketComponentDealer = ({ players }) => {
       setPrivateCards([]);
       setPot(0);
       setBestHand("");
+      setIsGrayscale(false);
     } else if (data.actionType === 6){
       setCommunityCards([]);
       setPrivateCards([]);

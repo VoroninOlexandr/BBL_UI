@@ -127,7 +127,7 @@ const PlayerActions = () => {
             onChange={(e) => setRaiseAmount(Number(e.target.value))}
           />
           <span>{raiseAmount}</span>
-          <button onClick={handleRaise}>Confirm</button>
+          <button className="confirm-button" onClick={handleRaise}>Confirm</button>
         </div>
       )}
     </div>

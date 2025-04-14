@@ -134,7 +134,7 @@ const WebSocketComponentDealer = ({ players }) => {
               src={`/images/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
               className="card-image"
-              style={{ filter: isGrayscale ? "grayscale(100%)" : "none" }}
+              style={isGrayscale ? { filter: "grayscale(100%)" } : {}}
             />
           </div>
         ))}

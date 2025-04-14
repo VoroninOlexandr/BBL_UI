@@ -357,6 +357,17 @@
   border-radius: 4px;
 }
 
+@keyframes FadePushak {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-27px);
+  }
+}
+
 .process{
   font-family: 'Montserrat', sans-serif;
   font-size:0.8rem;
@@ -369,6 +380,7 @@
   padding-right: 10px; 
   transform:translate(0px, -27px);
   position: fixed;
+  animation: FadePushak 0.3s ease forwards;
 }
 
 
@@ -709,4 +721,6 @@
   opacity: 0.85;
   transform: scale(1.05);
 }
+
+
 

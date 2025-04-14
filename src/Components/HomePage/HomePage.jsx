@@ -11,6 +11,7 @@ import img4 from "../Assets/4.png";
 import img5 from "../Assets/5.png";
 import img6 from "../Assets/6.png";
 import zeroImage from "../Assets/0.png";
+import defaultImage from "../Assets/default.png";
 import noLobbiesImage from "../Assets/nolobbies.png";
 
 const HomePage = () => {
@@ -21,6 +22,7 @@ const HomePage = () => {
   const [columnWidths, setColumnWidths] = useState({ name: 200, players: 150, state: 100 });
   const [hoveredLobby, setHoveredLobby] = useState(null);
 const [previewImageVisible, setPreviewImageVisible] = useState(false);
+const [hasHovered, setHasHovered] = useState(false);
   const navigate = useNavigate();
 
   const playerImages = {
@@ -155,15 +157,16 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
       return (
         <div
           key={lobby.id}
-          className={`lobby-card clickable-lobby ${index % 2 === 0 ? 'even' : 'odd'} ${isFull ? 'disabled' : ''}`}
+          className={`lobby-card clickable-lobby ${index % 2 === 0 ? "even" : "odd"} ${isFull ? "disabled" : ""}`}
           onClick={() => {
             if (!isFull) handleJoinTable(lobby.id);
           }}
           onMouseEnter={() => {
-            setPreviewImageVisible(false); // сховаємо
+            setPreviewImageVisible(false);
             setTimeout(() => {
-              setHoveredLobby(lobby); // змінимо фото
-              setPreviewImageVisible(true); // знову покажемо
+              setHoveredLobby(lobby);
+              setHasHovered(true); 
+              setPreviewImageVisible(true);
             }, 50);
           }}
         >
@@ -183,24 +186,23 @@ const [previewImageVisible, setPreviewImageVisible] = useState(false);
     })
   )}
 </div>
-
-        </div>
-      </div>
-
-      {/* Незалежний контейнер з фото */}
-      <div className="hover-preview-container">
-  {hoveredLobby && (
-    <img
-      src={playerImages[hoveredLobby.playerCount]}
-      alt={`Preview for ${hoveredLobby.playerCount} players`}
-      className={`hover-preview-image ${previewImageVisible ? "visible" : ""}`}
-    />
-  )}
 </div>
-    </div>
+</div>
 
-    
-  );
+{}
+<div className="hover-preview-container">
+<img
+src={
+  hasHovered && hoveredLobby
+    ? playerImages[hoveredLobby.playerCount] || defaultImage
+    : defaultImage
+}
+alt="Lobby preview"
+className={`hover-preview-image ${previewImageVisible || !hasHovered ? "visible" : ""}`}
+/>
+</div>
+</div>
+);
 };
 
 export default HomePage;

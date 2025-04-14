@@ -202,9 +202,37 @@ const GameTable = () => {
     <div className="game-table-container">
       <audio ref={audioRef} src="/images/chat.mp3" autoPlay loop />
 
-      <div className="top-bar">{/* ... */}</div>
+      <div className="top-bar">
+        <div className="left-section">
+          <img src="/images/logo.png" alt="Logo" className="logo" />
+          <span className="brand-name">BBL Poker</span>
+        </div>
+        <div className="center-section">
+          <button onClick={() => togglePanel("about")} className="top-button">About Us</button>
+          <button onClick={() => togglePanel("help")} className="top-button">Help</button>
+        </div>
+        <div className="right-section">
+          <img
+            src={muted ? "/images/soundoff.png" : "/images/soundon.png"}
+            alt="Toggle Sound"
+            className="sound-icon"
+            onClick={toggleMute}
+          />
+        </div>
+      </div>
 
-      <div className="panel-container">{/* ... */}</div>
+      <div className="panel-container">
+        {activePanel === "about" && (
+          <div className="info-panel">
+            <img src="/images/aboutus.png" alt="About Us" className="panel-image about-img" />
+          </div>
+        )}
+        {activePanel === "help" && (
+          <div className="info-panel">
+            <img src="/images/help.png" alt="Help" className="panel-image help-img" />
+          </div>
+        )}  
+      </div>
 
       <div className="game-table">
         <img src="/images/tableback.png" alt="Background" className="background" />

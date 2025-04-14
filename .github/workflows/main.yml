@@ -50,6 +50,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             mv /home/ubuntu/bblpoker/dist /home/ubuntu/bblpoker/frontend
+            cd /home/ubuntu/bblpoker
             sudo docker compose down nginx
             sudo docker compose down backend
             sudo docker compose up -d nginx

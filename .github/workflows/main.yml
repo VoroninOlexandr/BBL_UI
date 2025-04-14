@@ -23,21 +23,19 @@ jobs:
           npm install
           npm run build
 
-      - name: Clean old frontend files on EC2
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd /home/ubuntu/bblpoker
-            rm -rf frontend
-
-      - name: Copy new frontend build to EC2
+      - name: Copy dist directory to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          source: "dist/*"
-          target: "/home/ubuntu/bblpoker/frontend/"
+          source: "dist"
+          target: "/home/ubuntu/bblpoker/"
+
+      - name: Rename dist to frontend on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: mv /home/ubuntu/bblpoker/dist /home/ubuntu/bblpoker/frontend

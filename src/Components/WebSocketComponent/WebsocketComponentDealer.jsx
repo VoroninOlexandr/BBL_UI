@@ -45,6 +45,7 @@ const WebSocketComponentDealer = ({ players }) => {
   const [bestHand, setBestHand] = useState("");
   const [winner, setWinner] = useState(null);
   const [webSocketService] = useState(new WebSocketService());
+  const [isGrayscale, setIsGrayscale] = useState(false);
 
   const handleCardData = (data) => {
     if (data.actionType === 1) {
@@ -76,6 +77,10 @@ const WebSocketComponentDealer = ({ players }) => {
       setPrivateCards([]);
       setPot(0);
       setBestHand("");
+    } else if (data.actionType === 4){
+      const playerId = sessionStorage.getItem("playerId");
+
+      if (data.playerId === playerId) setIsGrayscale(true);
     }
   };
 
@@ -128,6 +133,7 @@ const WebSocketComponentDealer = ({ players }) => {
               src={`/images/suits/${Suit[card.suit]}_${Rank[card.rank]}.png`}
               alt={`${Rank[card.rank]} of ${Suit[card.suit]}`}
               className="card-image"
+              style={{ filter: isGrayscale ? "grayscale(100%)" : "none" }}
             />
           </div>
         ))}

@@ -357,6 +357,20 @@
   border-radius: 4px;
 }
 
+.process{
+  font-family: 'Montserrat', sans-serif;
+  font-size:0.8rem;
+  background-color: white;
+  color:black;
+  font-weight: 1000;
+  border-radius:30px;
+  padding-left: 10px; 
+  margin-bottom: 10px;
+  padding-right: 10px; 
+  transform:translate(0px, -27px);
+  position: fixed;
+}
+
 
 .chat-input textarea {
   font-family: Arial, Helvetica, sans-serif;

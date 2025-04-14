@@ -103,6 +103,22 @@ const GameTable = () => {
         });
         setShowEndGameButtons(true);
       }
+    } else if (data.actionType === 5){
+      const playerId = data.playerId;
+
+      setPlayers((prevPlayers) =>
+        prevPlayers.map((player) =>
+          player.id === playerId ? { ...player, turn : "THINKING.." } : { ...player, turn : "" }
+        )
+      );
+    } else if (data.actionType === 4){
+      const playerId = data.playerId;
+
+      setPlayers((prevPlayers) =>
+        prevPlayers.map((player) =>
+          player.id === playerId ? { ...player, fold : true } : player
+        )
+      );
     }
   };
 
@@ -131,7 +147,9 @@ const GameTable = () => {
           id: p.id,
           name: p.nickname,
           avatar: "/images/avatar_" + p.avatar + ".png",
+          turn : "",
           balance: 1000,
+          fold : false
         }));
 
         const mainPlayerIndex = sortedPlayers.findIndex((p) => p.id === playerId);
@@ -244,7 +262,10 @@ const GameTable = () => {
             className={`player player-${index + 1}`}
             style={positions[index] || {}}
           >
-            <img src={player.avatar} alt={player.name} className="avatar" />
+            <div className = "process"> 
+              {player.turn}
+              </div>
+            <img src={player.avatar} alt={player.name} className="avatar" style={{ filter: player.fold ? "grayscale(100%)" : "none" }}/>
             <span className="player-name">{player.name}</span>
             <span className="player-balance">
               <img src="/images/chip.png" alt="Chip" className="chip-icon" />

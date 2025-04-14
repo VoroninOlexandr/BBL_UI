@@ -30,7 +30,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 15px;
+  gap: 14px;
 }
 
 .private-card {

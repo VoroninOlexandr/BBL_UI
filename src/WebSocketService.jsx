@@ -13,7 +13,7 @@ class WebSocketService {
       return; 
     }
     this.client = new Client({
-      brokerURL: "ws://localhost:8080/ws",
+      brokerURL: "/ws",
       reconnectDelay: 5000,
       onConnect: () => {
         console.log("WebSocket Connected to Game:", gameId);

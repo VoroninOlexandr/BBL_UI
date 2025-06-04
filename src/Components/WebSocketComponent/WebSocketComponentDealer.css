@@ -1,0 +1,43 @@
+/* .game-table-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #008000;
+} 
+
+.cards-container {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-5000%);
+}
+
+.card {
+  width: 8px;
+  height: 12px;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.private-cards-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+}
+
+.private-card {
+  width: 80px;
+  height: 120px;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  border: 2px solid gold;
+} */
